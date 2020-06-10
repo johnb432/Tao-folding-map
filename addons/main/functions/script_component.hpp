@@ -1,0 +1,1 @@
+#include "\x\tao_rewrite\addons\main\script_component.hpp"
