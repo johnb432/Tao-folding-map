@@ -224,4 +224,4 @@ private _backPosY = BACK_YPOS;
 			GVAR(down) = false;
 		};
 	};
-}, 0, [_time, _shakeX, _shakeY, _shakeMod, _mapPosY, _backPosY]] call CBA_fnc_addPerFrameHandler;
+}, GVAR(updateInterval), [_time, _shakeX, _shakeY, _shakeMod, _mapPosY, _backPosY]] call CBA_fnc_addPerFrameHandler;

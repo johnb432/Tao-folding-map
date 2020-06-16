@@ -16,7 +16,7 @@
 #define REQUIRED_CBA_VERSION {3,12,2}
 
 #ifdef COMPONENT_BEAUTIFIED
-    #define COMPONENT_NAME QUOTE(tao_rewrite - COMPONENT_BEAUTIFIED)
+    #define COMPONENT_NAME QUOTE(Tao Rewrite - COMPONENT_BEAUTIFIED)
 #else
-    #define COMPONENT_NAME QUOTE(tao_rewrite - COMPONENT)
+    #define COMPONENT_NAME QUOTE(Tao Rewrite - COMPONENT)
 #endif

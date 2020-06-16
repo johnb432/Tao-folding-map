@@ -104,6 +104,21 @@
 ] call CBA_fnc_addSetting;
 
 [
+  QGVAR(updateInterval),
+  "SLIDER",
+  ["Update Interval", "Changes the interval at which the map refreshes. 0 is every frame, otherwise Interval is in seconds. This affects the closing time of the map too, so it can act weird. Change at own discretion."],
+  ["Tao's Folding Map Rewrite", "Preferences"],
+  [0, 10, 0, 2],
+  false,
+  {
+    if (GVAR(updateInterval) != 0) then {
+      GVAR(allowshake) = false;
+    };
+  },
+  false
+] call CBA_fnc_addSetting;
+
+[
   QGVAR(mapicon),
   "LIST",
   ["Icon on map", "Enables tracking of a person on the tablet. An arrow is placed where the person is currently at. A vanilla GPS/NAV panel has to be open for it to work (Right-Ctrl M to open it by default)."],
