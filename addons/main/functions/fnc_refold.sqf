@@ -17,7 +17,7 @@
 
 if (!hasInterface) exitWith {};
 
-if (GVAR(isOpen) && {GVAR(allowadjust)}) then {
+if (GVAR(isOpen) && {GVAR(allowadjust) != 1}) then {
 	private _tao_foldmap_centerPos = getPos player;
 	private _x = _tao_foldmap_centerPos select 0;
 	private _y = _tao_foldmap_centerPos select 1;

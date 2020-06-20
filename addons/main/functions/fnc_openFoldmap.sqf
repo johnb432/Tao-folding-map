@@ -135,7 +135,7 @@ private _backPosY = BACK_YPOS;
 	private _pagingFudgeFactor = 80 * _mapScale / GVAR(baseScale);
 
 	// If the player has gotten off the page somehow, re-center the map.
-	if (GVAR(allowadjust)) then {
+	if (GVAR(allowadjust) == 0) then { //only adjusts when player gets off screen
 		private _wts = (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapWorldToScreen getPos player;
 		private _mapWidth = (ctrlPosition (FOLDMAP displayCtrl GVAR(mapCtrlActive))) select 2;
 		private _mapHeight = (ctrlPosition (FOLDMAP displayCtrl GVAR(mapCtrlActive))) select 3;
@@ -187,8 +187,8 @@ private _backPosY = BACK_YPOS;
 			(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, _mapScale, GVAR(centerPos)];
 			ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
 		};
-	} else {
-
+	};
+	if (GVAR(allowadjust) == 1) then { //needs to be manually adjusted
 		private _oldX = GVAR(centerPos) select 0;
 		private _oldY = GVAR(centerPos) select 1;
 
@@ -224,4 +224,7 @@ private _backPosY = BACK_YPOS;
 			GVAR(down) = false;
 		};
 	};
-}, GVAR(updateInterval), [_time, _shakeX, _shakeY, _shakeMod, _mapPosY, _backPosY]] call CBA_fnc_addPerFrameHandler;
+	if (GVAR(allowadjust) == 2) then { //always centers player
+		call FUNC(refold);
+	};
+}, 0, [_time, _shakeX, _shakeY, _shakeMod, _mapPosY, _backPosY]] call CBA_fnc_addPerFrameHandler;

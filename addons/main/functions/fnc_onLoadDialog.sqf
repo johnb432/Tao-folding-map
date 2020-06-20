@@ -38,15 +38,15 @@ if (!GVAR(drawPaper) && GVAR(isNightMap)) then {
 
 // On first run, get the center pos. This is used for all paging thereafter.
 if (isNil QUOTE(GVAR(centerPos))) then {
-	if (GVAR(allowadjust)) then {
-		GVAR(centerPos) = getPos player;
-	} else {
-		private _worldsize = worldSize / 2;
+	if (GVAR(allowadjust) == 1) then {
+    private _worldsize = worldSize / 2;
 		GVAR(centerPos) = [_worldSize, _worldSize];
+	} else {
+		GVAR(centerPos) = getPos player;
 	};
 };
 
-if (GVAR(allowadjust)) then {
+if (GVAR(allowadjust) != 1) then {
 	// Off-map check: if the player passed off the map while it was closed, recenter it.
 	private _dX = abs ((GVAR(centerPos) select 0) - (getPos player select 0));
 	private _dY = abs ((GVAR(centerPos) select 1) - (getPos player select 1));

@@ -22,7 +22,7 @@ if (GVAR(isOpen)) then {
 		private _x = _tao_foldmap_centerPos select 0;
 		private _y = _tao_foldmap_centerPos select 1;
 
-		if (!GVAR(allowadjust)) then {
+		if (GVAR(allowadjust) == 1) then {
 			_x = GVAR(centerPos) select 0;
 			_y = GVAR(centerPos) select 1;
 		};

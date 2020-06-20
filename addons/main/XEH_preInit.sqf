@@ -13,7 +13,7 @@ PREP_RECOMPILE_END;
 }, {}, [DIK_M, [false, false, true]]] call cba_fnc_addKeybind;
 
 ["Tao's Folding Map Rewrite", "refold", "Refold map", {
-  if (GVAR(allowadjust)) then {
+  if (GVAR(allowadjust) == 0) then {
     call FUNC(refold);
   }; true
 }, {}, [DIK_M, [true, true, false]]] call cba_fnc_addKeybind;
