@@ -49,8 +49,8 @@ class RscTitles {
 			style = 48;
 			x = QUOTE(SAFEZONE_X);
 			y = QUOTE(SAFEZONE_Y);
-			w = QUOTE((SAFEZONE_H * 0.55));
-			h = QUOTE((SAFEZONE_H * 0.745));
+			w = QUOTE(SAFEZONE_H * 0.55);
+			h = QUOTE(SAFEZONE_H * 0.745);
 			colorBackground[] = {0, 0, 0, 0};
 			colorText[] = {1, 1, 1, 1};
 			shadow = 0;
@@ -62,8 +62,8 @@ class RscTitles {
 			style = 1;
 			x = QUOTE(SAFEZONE_X);
 			y = QUOTE(SAFEZONE_Y);
-			w = QUOTE((SAFEZONE_H * 0.363));
-			h = QUOTE((SAFEZONE_H * 0.015));
+			w = QUOTE(SAFEZONE_H * 0.363);
+			h = QUOTE(SAFEZONE_H * 0.015);
 			colorBackground[] = {0.09, 0.1, 0.13, 1};
 			colorText[] = {1, 1, 1, 1};
 			sizeEx = "0.015 / (getResolution select 5)";
@@ -83,7 +83,7 @@ class RscTitles {
 		class Tao_FoldMapStatusBarTextLeft: Tao_FoldMapStatusBar {
 			idc = 32;
 			style = 0;
-			w = QUOTE((SAFEZONE_H * 0.363));
+			w = QUOTE(SAFEZONE_H * 0.363);
 			colorBackground[] = {1, 0, 0, 0};
 			text = "";
 		};
@@ -91,8 +91,8 @@ class RscTitles {
 			idc = 40;
 			x = QUOTE(SAFEZONE_X);
 			y = QUOTE(SAFEZONE_Y);
-			w = QUOTE((SAFEZONE_H * 0.363));
-			h = QUOTE((SAFEZONE_H * 0.629));
+			w = QUOTE(SAFEZONE_H * 0.363);
+			h = QUOTE(SAFEZONE_H * 0.629);
 			type = 101;
 			style = 48;
 			colorLevels[] = {0.65, 0.6, 0.55, 1};
@@ -265,8 +265,8 @@ class Tao_Foldmap_MovingDialog {
 		colorText[] = {0, 0, 0, 1};
 		x = QUOTE(SAFEZONE_X);
 		y = QUOTE(SAFEZONE_Y);
-		w = QUOTE((SAFEZONE_H * 0.363));
-		h = QUOTE((SAFEZONE_H * 0.629));
+		w = QUOTE(SAFEZONE_H * 0.363);
+		h = QUOTE(SAFEZONE_H * 0.629);
 	};
 	class MoveMe: RscText {
 		idc = 11;
@@ -279,16 +279,16 @@ class Tao_Foldmap_MovingDialog {
 		text = "Move me. Press Esc to cancel.";
 		x = QUOTE(SAFEZONE_X);
 		y = QUOTE(SAFEZONE_Y);
-		w = QUOTE((SAFEZONE_H * 0.363) / 2);
-		h = QUOTE((SAFEZONE_H * 0.629) * 0.12);
+		w = QUOTE(SAFEZONE_H * 0.1815);
+		h = QUOTE(SAFEZONE_H * 0.07548);
 	};
 	class ConfirmButton: RscButton {
 		idc = 12;
 		moving = 0;
 		x = QUOTE(SAFEZONE_X);
 		y = QUOTE(SAFEZONE_Y);
-		w = QUOTE((SAFEZONE_H * 0.363) / 2);
-		h = QUOTE((SAFEZONE_H * 0.629) * 0.05);
+		w = QUOTE(SAFEZONE_H * 0.1815);
+		h = QUOTE(SAFEZONE_H * 0.03145);
 		colorBackground[] = {0, 0, 0, 0.5};
 		text = "Confirm";
 		onButtonClick = QUOTE(0 = call FUNC(confirmMove));

@@ -14,8 +14,6 @@
  *
  * Public: No
  */
- 
-if (!hasInterface) exitWith {};
 
 if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
 	// Change which map is in use

@@ -29,6 +29,6 @@ if (GVAR(maplock) && {(_type == "paper" || _type == "tablet")}) then {
 	};
 
 	if (GVAR(isOpen)) then {
-			call FUNC(refreshMap);
+        call FUNC(refreshMap);
 	};
 };

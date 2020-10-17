@@ -15,7 +15,7 @@
  * Public: No
  */
 
- if (!hasInterface) exitWith {};
+if (!hasInterface) exitWith {};
 
 // If config set, change to paper map.
 if (GVAR(drawPaper)) then {
@@ -39,7 +39,7 @@ if (!GVAR(drawPaper) && GVAR(isNightMap)) then {
 // On first run, get the center pos. This is used for all paging thereafter.
 if (isNil QUOTE(GVAR(centerPos))) then {
 	if (GVAR(allowadjust) == 1) then {
-    private _worldsize = worldSize / 2;
+        private _worldsize = worldSize / 2;
 		GVAR(centerPos) = [_worldSize, _worldSize];
 	} else {
 		GVAR(centerPos) = getPos player;
