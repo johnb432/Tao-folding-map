@@ -15,8 +15,6 @@
  * Public: No
  */
 
-if (!hasInterface) exitWith {};
-
 // If config set, change to paper map.
 if (GVAR(drawPaper)) then {
 	// Change to paper background.
@@ -31,7 +29,8 @@ if (GVAR(drawPaper)) then {
 // Determine if it's day or night so we can use the correct map (tablet only).
 GVAR(mapCtrlActive) = DAYMAP;
 GVAR(mapCtrlInactive) = NIGHTMAP;
-if (!GVAR(drawPaper) && GVAR(isNightMap)) then {
+
+if (!GVAR(drawPaper) && {GVAR(isNightMap)}) then {
 	GVAR(mapCtrlActive) = NIGHTMAP;
 	GVAR(mapCtrlInactive) = DAYMAP;
 };
@@ -39,8 +38,7 @@ if (!GVAR(drawPaper) && GVAR(isNightMap)) then {
 // On first run, get the center pos. This is used for all paging thereafter.
 if (isNil QUOTE(GVAR(centerPos))) then {
 	if (GVAR(allowadjust) == 1) then {
-        private _worldsize = worldSize / 2;
-		GVAR(centerPos) = [_worldSize, _worldSize];
+		GVAR(centerPos) = [worldSize / 2, worldSize / 2];
 	} else {
 		GVAR(centerPos) = getPos player;
 	};

@@ -39,7 +39,7 @@ class RscTitles {
 			"Tao_FoldMapStatusBar",
 			"Tao_FoldMapStatusBarTextRight",
 			"Tao_FoldMapStatusBarTextLeft",
-			"TAO_Foldmap",
+			"Tao_Foldmap",
 			"Tao_Foldmap_NightRed"
 		};
 		//background picture: base tablet
@@ -56,7 +56,7 @@ class RscTitles {
 			shadow = 0;
 			text = "\x\tao_rewrite\addons\main\data\datapad_ca.paa";
 		};
-		//top bar with dates and gridref: base class
+		//Top bar with dates and gridref: base class
 		class Tao_FoldMapStatusBar: RscText {
 			idc = 30;
 			style = 1;
@@ -72,20 +72,21 @@ class RscTitles {
 			shadow = 2;
 			text = "";
 		};
-		//
+		//Top bar with date
 		class Tao_FoldMapStatusBarTextRight: Tao_FoldMapStatusBar {
 			idc = 31;
-			style = 1;
-			w = QUOTE((SAFEZONE_H * 0.363));
+			//style = 1;
+			//w = QUOTE(SAFEZONE_H * 0.363);
 			colorBackground[] = {1, 0, 0, 0};
-			text = "";
+			//text = "";
 		};
+        //Top bar with gridref
 		class Tao_FoldMapStatusBarTextLeft: Tao_FoldMapStatusBar {
 			idc = 32;
 			style = 0;
-			w = QUOTE(SAFEZONE_H * 0.363);
+			//w = QUOTE(SAFEZONE_H * 0.363);
 			colorBackground[] = {1, 0, 0, 0};
-			text = "";
+			//text = "";
 		};
 		class Tao_FoldMap: RscMapControl {
 			idc = 40;

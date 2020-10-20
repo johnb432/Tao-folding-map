@@ -17,16 +17,12 @@
 
 params ["_type"];
 
-if (GVAR(maplock) && {(_type == "paper" || _type == "tablet")}) then {
+if (GVAR(maplock)) then {
 	// Save new style to profile namespace.
 	SETPRVAR(drawStyle, _type);
-
-	// If paper was selected, turn on alternate render codepath.
-	if (_type == "paper") then {
-		GVAR(drawPaper) = true;
-	} else {
-		GVAR(drawPaper) = false;
-	};
+    
+    GVAR(drawPaper) = [false, true] select (_type == "paper");
+    //GVAR(drawPaper) = if (_type == "paper") then {true} else {false};
 
 	if (GVAR(isOpen)) then {
         call FUNC(refreshMap);

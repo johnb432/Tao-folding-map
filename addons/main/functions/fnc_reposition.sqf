@@ -15,8 +15,6 @@
  * Public: No
  */
 
-if (!hasInterface) exitWith {};
-
 if (GVAR(reposmap)) then {
 	if (GVAR(isOpen)) then {
 		// Close any other moving dialogs.
