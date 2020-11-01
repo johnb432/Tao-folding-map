@@ -1,9 +1,7 @@
-PREPFNC(changeType);
 PREPFNC(confirmMove);
 PREPFNC(drawUpdatePaper);
 PREPFNC(drawUpdateTablet);
 PREPFNC(fleximenu);
-PREPFNC(getNotSelectedStyleName);
 PREPFNC(moveMapOffscreen);
 PREPFNC(moveMapOnscreen);
 PREPFNC(nvMode);
@@ -12,7 +10,6 @@ PREPFNC(onLoadMovingDialog);
 PREPFNC(openFoldmap);
 PREPFNC(refold);
 PREPFNC(refreshMap);
-PREPFNC(reposition);
 PREPFNC(toggleMap);
 PREPFNC(zoomIn);
 PREPFNC(zoomOut);

@@ -15,7 +15,5 @@
  * Public: No
  */
 
-if (!hasInterface) exitWith {};
-
-[] call FUNC(toggleMap);
-[{[] call FUNC(toggleMap)}, [], 1] call CBA_fnc_waitAndExecute;
+call FUNC(toggleMap);
+[{call FUNC(toggleMap)}, [], 1] call CBA_fnc_waitAndExecute;
