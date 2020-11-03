@@ -1,6 +1,4 @@
 PREPFNC(confirmMove);
-PREPFNC(drawUpdatePaper);
-PREPFNC(drawUpdateTablet);
 PREPFNC(fleximenu);
 PREPFNC(moveMapOffscreen);
 PREPFNC(moveMapOnscreen);
@@ -8,7 +6,6 @@ PREPFNC(nvMode);
 PREPFNC(onLoadDialog);
 PREPFNC(onLoadMovingDialog);
 PREPFNC(openFoldmap);
-PREPFNC(refold);
 PREPFNC(refreshMap);
 PREPFNC(toggleMap);
 PREPFNC(zoomIn);

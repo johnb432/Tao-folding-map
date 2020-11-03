@@ -17,11 +17,13 @@
 
 params ["_time"];
 
+private _mapPosY = MAP_YPOS - STATUS_YOFFSET;
+
 (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlSetPosition [MAP_XPOS, MAP_YPOS];
 (FOLDMAP displayCtrl BACKGROUND) ctrlSetPosition [BACK_XPOS, BACK_YPOS];
-(FOLDMAP displayCtrl STATUSBAR) ctrlSetPosition [MAP_XPOS, MAP_YPOS - STATUS_YOFFSET];
-(FOLDMAP displayCtrl STATUSRIGHT) ctrlSetPosition [MAP_XPOS, MAP_YPOS - STATUSTEXT_YOFFSET];
-(FOLDMAP displayCtrl STATUSLEFT) ctrlSetPosition [MAP_XPOS, MAP_YPOS - STATUSTEXT_YOFFSET];
+(FOLDMAP displayCtrl STATUSBAR) ctrlSetPosition [MAP_XPOS, _mapPosY];
+(FOLDMAP displayCtrl STATUSRIGHT) ctrlSetPosition [MAP_XPOS, _mapPosY];
+(FOLDMAP displayCtrl STATUSLEFT) ctrlSetPosition [MAP_XPOS, _mapPosY];
 
 (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlCommit _time;
 (FOLDMAP displayCtrl BACKGROUND) ctrlCommit _time;

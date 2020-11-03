@@ -14,12 +14,12 @@ class CfgPatches {
 };
 class CfgMods {
     class PREFIX {
-         dir = "@tao";
-         name = "Tao's folding map";
-         hideName = "true";
-         actionName = "GitHub";
-         action = "https://github.com/johnb432/TAO_rewrite";
-         description = "Tao's folding map";
+        dir = "@tao";
+        name = "Tao's folding map";
+        hideName = "true";
+        actionName = "GitHub";
+        action = "https://github.com/johnb432/TAO_rewrite";
+        description = "Tao's folding map";
     };
 };
 class RscText;

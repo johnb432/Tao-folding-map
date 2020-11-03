@@ -16,7 +16,7 @@
  */
 
 // Exit if in an invalid state for foldmap to open or if map is already open.
-if (GVAR(isOpen) || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {};
+if (!GVAR(enableMap) || {GVAR(isOpen)} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {};
 
 // Initialize the dialog.
 GVAR(isOpen) = true;
@@ -45,7 +45,7 @@ if (GVAR(allowAdjust) == 0) exitWith { //only adjusts when player gets off scree
         params ["_args", "_handleid"];
         _args params ["_time", "_shakeX", "_shakeY", "_shakeMod", "_color", "_velocity"];
 
-       	if (!GVAR(doShow) || {visibleMap && GVAR(closeMap)} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {
+       	if (!GVAR(enableMap) || {!GVAR(doShow)} || {visibleMap && GVAR(closeMap)} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {
           		[_handleid] call CBA_fnc_removePerFrameHandler;
           		// Scroll the map off the screen.
           		[SCROLLTIME] call FUNC(moveMapOffscreen);
@@ -190,7 +190,7 @@ if (GVAR(allowAdjust) == 1) exitWith { //needs to be manually adjusted
         params ["_args", "_handleid"];
         _args params ["_time", "_shakeX", "_shakeY", "_shakeMod", "_color", "_velocity"];
 
-       	if (!GVAR(doShow) || {visibleMap && GVAR(closeMap)} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {
+       	if (!GVAR(enableMap) || {!GVAR(doShow)} || {visibleMap && GVAR(closeMap)} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {
           		[_handleid] call CBA_fnc_removePerFrameHandler;
           		// Scroll the map off the screen.
           		[SCROLLTIME] call FUNC(moveMapOffscreen);
@@ -312,7 +312,7 @@ if (GVAR(allowAdjust) == 2) exitWith { //always centers player
         params ["_args", "_handleid"];
         _args params ["_time", "_shakeX", "_shakeY", "_shakeMod", "_color", "_velocity", "_pos"];
 
-        if (!GVAR(doShow) || {visibleMap && GVAR(closeMap)} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {
+        if (!GVAR(enableMap) || {!GVAR(doShow)} || {visibleMap && GVAR(closeMap)} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {
           		[_handleid] call CBA_fnc_removePerFrameHandler;
           		// Scroll the map off the screen.
           		[SCROLLTIME] call FUNC(moveMapOffscreen);

@@ -14,8 +14,11 @@ PREP_RECOMPILE_END;
 }, {}, [DIK_M, [false, false, true]]] call cba_fnc_addKeybind;
 
 ["Tao's Folding Map Rewrite", "refold", "Refold map", {
-    if (GVAR(allowAdjust) == 0) then {
-        call FUNC(refold);
+    if (GVAR(isOpen) && {GVAR(allowAdjust) == 0}) then {
+        private _pos = getPos player;
+       	(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
+       	ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+       	GVAR(centerPos) = [_pos select 0, _pos select 1];
     };
     true
 }, {}, [DIK_M, [true, true, false]]] call cba_fnc_addKeybind;
@@ -35,8 +38,10 @@ PREP_RECOMPILE_END;
 }, {}, [DIK_NUMPADMINUS, [false, false, true]]] call cba_fnc_addKeybind;
 
 ["Tao's Folding Map Rewrite", "nightmode", "Night Mode (tablet only)", {
-     call FUNC(nvMode);
-     true
+    if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
+        call FUNC(nvMode);
+    };
+    true
 }, {}, [DIK_N, [false, true, true]]] call cba_fnc_addKeybind;
 
 ["Tao's Folding Map Rewrite", "configure", "Configure Map",

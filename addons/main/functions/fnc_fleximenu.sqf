@@ -57,7 +57,11 @@
       [
          // Switch to day/night mode
          format ["Switch to %1", ["night mode", "day mode"] select (GVAR(isNightMap))], // text on button
-         {call FUNC(nvMode)}, // code to run
+         {
+             if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
+                 call FUNC(nvMode);
+             };
+         }, // code to run
          "", // icon
          "", // tooltip
          [], // submenu
