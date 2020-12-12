@@ -30,12 +30,13 @@ GVAR(mapCtrlActive) = [DAYMAP, NIGHTMAP] select (!GVAR(drawPaper) && {GVAR(isNig
 GVAR(mapCtrlInactive) = [NIGHTMAP, DAYMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
 
 // On first run, get the center pos. This is used for all paging thereafter.
+// [a, b] select (true) --> b              tao_rewrite_main_ for GVAR
 if (isNil QGVAR(centerPos)) then {
-    GVAR(centerPos) = [getPos player, [worldSize / 2, worldSize / 2]] select (GVAR(allowAdjust) == 1);
+    GVAR(centerPos) = [[worldSize / 2, worldSize / 2], getPos player] select (GVAR(allowAdjust) != 1 && (visibleGPS || {GVAR(GPSAdjust)}));
 };
 
-// Off-map check for non-manual modes: if the player passed off the map while it was closed, recenter it. Fudge factor here to avoid opening on the edge of the map, which isn't very helpful.
-if (GVAR(allowAdjust) != 1 && {abs ((GVAR(centerPos) select 0) - (getPos player select 0)) + 150 > GVAR(pageWidth) || abs ((GVAR(centerPos) select 1) - (getPos player select 1)) + 150 > GVAR(pageHeight)}) then {
+// Off-map check for non-manual modes: If the player passed off the map while it was closed, recenter it. Fudge factor here to avoid opening on the edge of the map, which isn't very helpful.
+if (GVAR(allowAdjust) != 1 && {visibleGPS || GVAR(GPSAdjust)} && {abs ((GVAR(centerPos) select 0) - (getPos player select 0)) + 150 > GVAR(pageWidth) || abs ((GVAR(centerPos) select 1) - (getPos player select 1)) + 150 > GVAR(pageHeight)}) then {
 	   GVAR(centerPos) = getPos player;
 };
 

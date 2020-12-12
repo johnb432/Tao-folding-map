@@ -36,7 +36,7 @@ ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
 (FOLDMAP displayCtrl GVAR(mapCtrlInactive)) ctrlCommit 0;
 
 //'Refolds' the map to recenter it.
-if (GVAR(allowAdjust) == 0) then {
+if (GVAR(allowAdjust) == 0 && {visibleGPS || {GVAR(GPSAdjust)}}) then {
    	private _pos = getPos player;
    	(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
    	ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));

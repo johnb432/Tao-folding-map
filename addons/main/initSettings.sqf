@@ -48,6 +48,21 @@
 ] call CBA_fnc_addSetting;
 
 [
+    QGVAR(GPSAdjust),
+    "LIST",
+    ["Require open GPS to adjust automatically", "If set to true, you will need a GPS panel open to be able to use the automatic adjusting modes."],
+    ["Tao's Folding Map Rewrite", "Locks"],
+    [[true, false], ["No", "Yes"], 1],
+    true,
+    {
+        if (GVAR(isOpen)) then {
+            call FUNC(refreshMap);
+        };
+    },
+    false
+] call CBA_fnc_addSetting;
+
+[
     QGVAR(reposMap),
     "LIST",
     ["Map repositioning", "Allows the repositioning of the map on the player's screen."],
@@ -95,7 +110,7 @@
 [
     QGVAR(closeView),
     "LIST",
-    ["Keep map open in:", "Keep the map open every time you enter despite switching perspectives."],
+    ["Keep map open in", "Keep the map open every time you enter despite switching perspectives."],
     ["Tao's Folding Map Rewrite", "Preferences"],
     [[["INTERNAL","EXTERNAL"], ["INTERNAL","EXTERNAL","GUNNER"], ["INTERNAL","EXTERNAL","GROUP"], ["INTERNAL","EXTERNAL","GUNNER","GROUP"]], ["1st & 3rd perspectives", "1st, 3rd & gunner perspectives", "1st, 3rd & commander perspectives", "All perspectives"], 0],
     false,

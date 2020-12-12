@@ -21,7 +21,7 @@ if (GVAR(mapScale) > 1) then {
 	   GVAR(mapScale) = 1;
 };
 
-private _pos = [getPos player, GVAR(centerPos)] select (GVAR(allowAdjust) == 1);
+private _pos = [GVAR(centerPos), getPos player] select (GVAR(allowAdjust) != 1 && {visibleGPS || GVAR(GPSAdjust)});
 
 (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
 ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));

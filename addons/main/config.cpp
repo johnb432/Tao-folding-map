@@ -7,7 +7,7 @@ class CfgPatches {
       		weapons[] = {};
       		requiredVersion = REQUIRED_VERSION;
       		requiredAddons[] = {"cba_main", "cba_xeh", "A3_UI_F"};
-      		authors[] = {"Taosenai", "johnb43"};
+      		authors[] = {"johnb43", "Taosenai"};
       		authorUrl = "http://ryanschultz.org/tmr/foldmap/";
       		VERSION_CONFIG;
    	};

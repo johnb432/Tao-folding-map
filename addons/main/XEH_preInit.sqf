@@ -14,7 +14,7 @@ PREP_RECOMPILE_END;
 }, {}, [DIK_M, [false, false, true]]] call cba_fnc_addKeybind;
 
 ["Tao's Folding Map Rewrite", "refold", "Refold map", {
-    if (GVAR(isOpen) && {GVAR(allowAdjust) == 0}) then {
+    if (GVAR(isOpen) && {GVAR(allowAdjust) == 0} && {visibleGPS || GVAR(GPSAdjust)}) then {
         private _pos = getPos player;
        	(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
        	ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
