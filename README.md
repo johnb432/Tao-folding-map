@@ -9,6 +9,8 @@ Folding Map lets you open a tactical map while in game which is bigger and more 
   * **Map enable:** Allows the addons to be effectively toggled off if necessary.
   * **Lock map type:** Locks the map type to the paper map. Useful for pre-GPS missions. Note, this overrides the "Preferred map type" setting.
   * **Keep player on map:** Always keeps you on the map if set to automatic. On manual, you need to use the "Move up/down/left/right" keys to move the map around. Useful if want to disable automatic centering.
+  * **Require open GPS to adjust automatically:** This setting is set to "Yes" by default **and can only be changed by the server**.
+  If set to "Yes" an open GPS will be required in order to have automatic position tracking. The idea is that you need a GPS to be able to track your position automatically but that can be turned off, if the mission maker/admin wants to.
   * **Map repositioning:** Allows the map to be moved around to be put in a place of your liking.
   * **Preferred map type:** Sets which map type should be selected when you first load into a mission.
   * **Close map:** If set to disabled it will stay open when you open the vanilla map. If enabled the map will close.

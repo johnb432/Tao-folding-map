@@ -15,17 +15,11 @@
  * Public: No
  */
 
-if (!hasInterface) exitWith {};
-
 // Put the Moving Dialog right on top of the existing map.
+(MOVEME displayCtrl 10) ctrlSetPosition [MAP_XPOS, MAP_YPOS];
+(MOVEME displayCtrl 11) ctrlSetPosition [MAP_XPOS, MAP_YPOS];
+(MOVEME displayCtrl 12) ctrlSetPosition [MAP_XPOS + (((ctrlPosition (MOVEME displayCtrl 10)) select 2) / 4), MAP_YPOS + (((ctrlPosition (MOVEME displayCtrl 10)) select 3) / 8)];
 
-private _mapPosY = MAP_YPOS;
-
-private _width = (ctrlPosition (MOVEME displayCtrl 10)) select 2;
-private _height = (ctrlPosition (MOVEME displayCtrl 10)) select 3;
-(MOVEME displayCtrl 10) ctrlSetPosition [MAP_XPOS, _mapPosY];
-(MOVEME displayCtrl 11) ctrlSetPosition [MAP_XPOS, _mapPosY];
-(MOVEME displayCtrl 12) ctrlSetPosition [MAP_XPOS + (_width / 4), _mapPosY + (_height / 8)];
 (MOVEME displayCtrl 10) ctrlCommit 0;
 (MOVEME displayCtrl 11) ctrlCommit 0;
 (MOVEME displayCtrl 12) ctrlCommit 0;

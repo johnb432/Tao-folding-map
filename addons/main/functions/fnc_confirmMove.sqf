@@ -22,12 +22,12 @@ private _posY = _pos select 1;
 MOVEME closeDisplay 0;
 
 // Make sure new positions are reasonable.
-if (_posX > safeZoneXAbs && {_posY > SAFEZONE_Y && {_posX < safeZoneWAbs && {_posY < SAFEZONE_H}}}) then {
-	[0.2] call FUNC(moveMapOnscreen);
+if (_posX > safeZoneXAbs && {_posY > SAFEZONE_Y} && {_posX < safeZoneWAbs} && {_posY < SAFEZONE_H}) then {
+   	[0.2] call FUNC(moveMapOnscreen);
 
-	// Save to profile namespace.
-	SETPRVAR(mapPosX, _posX);
-	SETPRVAR(mapPosY, _posY);
+   	// Save to profile namespace.
+   	SETPRVAR(mapPosX, _posX);
+   	SETPRVAR(mapPosY, _posY);
 } else {
-	systemChat "Invalid position.";
+   	systemChat "Invalid position.";
 };

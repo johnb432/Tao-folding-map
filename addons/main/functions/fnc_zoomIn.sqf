@@ -15,19 +15,12 @@
  * Public: No
  */
 
-if (GVAR(isOpen)) then {
-	if (GVAR(mapScale) / 2 > 0.005) then { // Don't allow excessive zoom
-		GVAR(mapScale) = GVAR(mapScale) / 2;
-		private _tao_foldmap_centerPos = getPos player;
-		private _x = _tao_foldmap_centerPos select 0;
-		private _y = _tao_foldmap_centerPos select 1;
+if (GVAR(mapScale) / 2 > 0.005) then { // Don't allow excessive zoom
+    GVAR(mapScale) = GVAR(mapScale) / 2;
 
-		if (GVAR(allowadjust) == 1) then {
-			_x = GVAR(centerPos) select 0;
-			_y = GVAR(centerPos) select 1;
-		};
-		(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_x, _y, 0]];
-		ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
-		GVAR(needsScaleReset) = true;
-	};
+    private _pos = [GVAR(centerPos), getPos player] select (GVAR(allowAdjust) != 1 && {visibleGPS || GVAR(GPSAdjust)});
+
+    (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
+    ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+    GVAR(needsScaleReset) = true;
 };
