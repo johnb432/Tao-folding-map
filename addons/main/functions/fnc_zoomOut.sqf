@@ -15,14 +15,8 @@
  * Public: No
  */
 
-GVAR(mapScale) = GVAR(mapScale) * 2;
+GVAR(mapScale) = (GVAR(mapScale) * 2) min 1;
 
-if (GVAR(mapScale) > 1) then {
-	   GVAR(mapScale) = 1;
-};
-
-private _pos = [GVAR(centerPos), getPos player] select (GVAR(allowAdjust) != 1 && {visibleGPS || GVAR(GPSAdjust)});
-
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
+(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), ([GVAR(centerPos), getPos player] select (GVAR(adjustMode) isNotEqualTo 1 && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}}))];
 ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
 GVAR(needsScaleReset) = true;

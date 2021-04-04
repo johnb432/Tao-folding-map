@@ -16,58 +16,130 @@
  */
 
 [
-   ["main", "Tao's Folding Map Rewrite", "popup"],
-   [
-      [
-         "Reposition map", // text on button
-         {
-            MOVEME closeDisplay 0;
-            createDialog "Tao_FoldMap_MovingDialog";
-         }, // code to run
-         "", // icon
-         "", // tooltip
-         [], // submenu
-         DIK_R, // shortcut key
-         GVAR(enableMap) && GVAR(isOpen) && GVAR(reposMap), // enabled?
-         true // visible if true
-      ],
+    ["main", COMPONENT_NAME, "popup"],
+    [
+        [
+            "Reposition map", // text on button
+            {
+                MOVEME closeDisplay 0;
+                createDialog QGVAR(foldMapMovingDialog);
+            }, // code to run
+            "", // icon
+            "", // tooltip
+            [], // submenu,     {"submenu"|["menuName", "", {0/1} (optional - use embedded list menu)]},
+            DIK_R, // shortcut key
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(reposMap)}, // enabled?
+            true // visible if true
+        ],
 
-      [
-         // Change to tablet/paper
-         format ["Change to %1", ["tablet", "paper"] select (GETPRVAR(drawStyle, "paper") == "tablet")], // text on button
-         {
-             private _type = ["tablet", "paper"] select (GETPRVAR(drawStyle, "paper") == "tablet");
+        [
+            // Change to tablet/paper
+            format ["Change to %1", ["tablet", "paper"] select (DRAW_STYLE isEqualTo "tablet")],
+            {
+                private _type = ["tablet", "paper"] select (DRAW_STYLE isEqualTo "tablet");
 
-             // Save new style to profile namespace.
-             SETPRVAR(drawStyle, _type);
-             GVAR(drawPaper) = [false, true] select (_type == "paper");
+                // Save new style to profile namespace.
+                DRAW_STYLE_SET(_type);
+                GVAR(drawPaper) = [false, true] select (_type isEqualTo "paper");
 
-             if (GVAR(isOpen)) then {
-                 call FUNC(refreshMap);
-             };
-         }, // code to run
-         "", // icon
-         "", // tooltip
-         [], // submenu
-         DIK_C, // shortcut key
-         GVAR(enableMap) && GVAR(isOpen) && GVAR(mapTypeUnlocked), // enabled?
-         true // visible if true
-      ],
+                if (GVAR(isOpen)) then {
+                    call FUNC(refreshMap);
+                };
+            },
+            "",
+            "",
+            [],
+            DIK_C,
+            GVAR(enableMap) && {GVAR(isOpen)} && {!GVAR(mapTypeLocked)},
+            true
+        ],
 
-      [
-         // Switch to day/night mode
-         format ["Switch to %1", ["night mode", "day mode"] select (GVAR(isNightMap))], // text on button
-         {
-             if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
-                 call FUNC(nvMode);
-             };
-         }, // code to run
-         "", // icon
-         "", // tooltip
-         [], // submenu
-         DIK_S, // shortcut key
-         GVAR(enableMap) && GVAR(isOpen) && !GVAR(drawPaper), // enabled?
-         true // visible if true
-      ]
-   ]
+        [
+            // Switch to day/night mode
+            format ["Switch to %1 mode", ["night", "day"] select (GVAR(isNightMap))],
+            {
+                if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
+                    call FUNC(nvMode);
+                };
+            },
+            "",
+            "",
+            [],
+            DIK_S,
+            GVAR(enableMap) && {GVAR(isOpen)} && {!GVAR(drawPaper)},
+            true
+        ],
+
+        [
+            // Switch to manual tracking mode
+            "Switch to Manual Tracking",
+            {
+                if (GVAR(isOpen)) then {
+                    GVAR(adjustMode) = 1;
+                    call FUNC(refreshMap);
+                };
+            },
+            "",
+            "",
+            [],
+            DIK_M,
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 1} && {!GVAR(allowAdjustLocked)},
+            true
+        ],
+
+        [
+            // Switch to automatic tracking mode
+            "Switch to Automatic Tracking",
+            {
+                if (GVAR(isOpen)) then {
+                    GVAR(adjustMode) = 0;
+                    call FUNC(refreshMap);
+                };
+            },
+            "",
+            "",
+            [],
+            DIK_A,
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 0} && {!GVAR(allowAdjustLocked)} && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}},
+            true
+        ],
+
+        [
+            // Switch to centered tracking mode
+            "Switch to Centered Tracking",
+            {
+                if (GVAR(isOpen)) then {
+                    GVAR(adjustMode) = 2;
+                    call FUNC(refreshMap);
+                };
+            },
+            "",
+            "",
+            [],
+            DIK_T,
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 2} && {!GVAR(allowAdjustLocked)} && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}},
+            true
+        ],
+
+        [
+            // Switch to centered tracking mode
+            "Toggle Scale",
+            {
+                if (GVAR(isOpen)) then {
+                    // Gets how many times the map has been reduced
+                    private _scale = [1, MAP_SIZE * SIZE_REDUCTION] select (MAP_SIZE > 0.82);
+                    MAP_SIZE_SET(_scale);
+                    GVAR(mapNeedsResize) = true;
+
+                    call FUNC(refreshMap);
+                };
+            },
+            "",
+            "",
+            [],
+            DIK_G,
+            GVAR(enableMap) && {GVAR(isOpen)},
+            true
+        ]
+    ]
 ];

@@ -15,5 +15,13 @@
  * Public: No
  */
 
+// This prevents the map from refreshing too many times, when multiple settings are changed at once
+if (GVAR(isRefreshing)) exitWith {};
+
 call FUNC(toggleMap);
-[{call FUNC(toggleMap)}, [], 1] call CBA_fnc_waitAndExecute;
+GVAR(isRefreshing) = true;
+
+[{
+    call FUNC(toggleMap);
+    GVAR(isRefreshing) = false;
+}, [], 1] call CBA_fnc_waitAndExecute;

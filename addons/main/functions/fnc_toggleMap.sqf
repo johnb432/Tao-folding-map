@@ -15,10 +15,9 @@
  * Public: No
  */
 
-if (GVAR(enableMap) && {!(visibleMap && GVAR(closeMap))} && {"ItemMap" in assignedItems player} && {cameraView in GVAR(closeView)}) then {
-   	if (!GVAR(isOpen)) then {
-      		call FUNC(openFoldmap);
-   	} else {
-   		   GVAR(doShow) = false; // Ends the monitor loop. Map is not ready again until scroll away finishes.
-   	};
+if (!GVAR(isOpen)) then {
+    call FUNC(openFoldmap);
+} else {
+    // Ends the monitor loop. Map is not ready again until scroll away finishes.
+    GVAR(doShow) = false;
 };

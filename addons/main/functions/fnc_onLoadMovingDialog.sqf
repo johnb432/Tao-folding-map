@@ -16,7 +16,7 @@
  */
 
 // Put the Moving Dialog right on top of the existing map.
-(MOVEME displayCtrl 10) ctrlSetPosition [MAP_XPOS, MAP_YPOS];
+(MOVEME displayCtrl 10) ctrlSetPosition (ctrlPosition (FOLDMAP displayCtrl GVAR(mapCtrlActive)));
 (MOVEME displayCtrl 11) ctrlSetPosition [MAP_XPOS, MAP_YPOS];
 (MOVEME displayCtrl 12) ctrlSetPosition [MAP_XPOS + (((ctrlPosition (MOVEME displayCtrl 10)) select 2) / 4), MAP_YPOS + (((ctrlPosition (MOVEME displayCtrl 10)) select 3) / 8)];
 

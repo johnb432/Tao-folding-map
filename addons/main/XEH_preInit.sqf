@@ -8,72 +8,71 @@ PREP_RECOMPILE_END;
 
 #include "initSettings.sqf"
 
-["Tao's Folding Map Rewrite", "toggle", "Toggle folding map", {
+[COMPONENT_NAME, QGVAR(toggleMap), "Toggle folding map", {
      call FUNC(toggleMap);
      true
-}, {}, [DIK_M, [false, false, true]]] call cba_fnc_addKeybind;
+}, {}, [DIK_M, [false, false, true]]] call CBA_fnc_addKeybind;
 
-["Tao's Folding Map Rewrite", "refold", "Refold map", {
-    if (GVAR(isOpen) && {GVAR(allowAdjust) == 0} && {visibleGPS || GVAR(GPSAdjust)}) then {
-        private _pos = getPos player;
-       	(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
+[COMPONENT_NAME, QGVAR(refoldMap), "Refold map", {
+    if (GVAR(isOpen) && {GVAR(adjustMode) isEqualTo 0} && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}}) then {
+        GVAR(centerPos) = getPos player;
+       	(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
        	ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
-       	GVAR(centerPos) = [_pos select 0, _pos select 1];
     };
     true
-}, {}, [DIK_M, [true, true, false]]] call cba_fnc_addKeybind;
+}, {}, [DIK_M, [true, true, false]]] call CBA_fnc_addKeybind;
 
-["Tao's Folding Map Rewrite", "zoomin", "Zoom In", {
+[COMPONENT_NAME, QGVAR(zoomInMap), "Zoom In", {
     if (GVAR(isOpen)) then {
-        call FUNC(zoomIn)
+        call FUNC(zoomIn);
     };
     true
-}, {}, [DIK_NUMPADPLUS, [false, false, true]]] call cba_fnc_addKeybind;
+}, {}, [DIK_NUMPADPLUS, [false, false, true]]] call CBA_fnc_addKeybind;
 
-["Tao's Folding Map Rewrite", "zoomout", "Zoom Out", {
+[COMPONENT_NAME, QGVAR(zoomOutMap), "Zoom Out", {
     if (GVAR(isOpen)) then {
-        call FUNC(zoomOut)
+        call FUNC(zoomOut);
     };
     true
-}, {}, [DIK_NUMPADMINUS, [false, false, true]]] call cba_fnc_addKeybind;
+}, {}, [DIK_NUMPADMINUS, [false, false, true]]] call CBA_fnc_addKeybind;
 
-["Tao's Folding Map Rewrite", "nightmode", "Night Mode (tablet only)", {
+[COMPONENT_NAME, QGVAR(nightModeMap), "Night Mode (tablet only)", {
     if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
         call FUNC(nvMode);
     };
     true
-}, {}, [DIK_N, [false, true, true]]] call cba_fnc_addKeybind;
+}, {}, [DIK_N, [false, true, true]]] call CBA_fnc_addKeybind;
 
-["Tao's Folding Map Rewrite", "configure", "Configure Map",
-  ["player", [], -100, QUOTE(call FUNC(fleximenu))],
-[DIK_M, [false, true, true]]] call CBA_fnc_addKeybindToFleximenu;
-
-["Tao's Folding Map Rewrite", "moveup", "Move Up", {
+[COMPONENT_NAME, QGVAR(moveUpMap), "Move Up", {
     if (GVAR(isOpen)) then {
         GVAR(up) = true;
     };
     true
-}, {}, [DIK_UPARROW, [false, false, true]]] call cba_fnc_addKeybind;
+}, {}, [DIK_UPARROW, [false, false, true]]] call CBA_fnc_addKeybind;
 
-["Tao's Folding Map Rewrite", "movedown", "Move Down", {
+[COMPONENT_NAME, QGVAR(moveDownMap), "Move Down", {
     if (GVAR(isOpen)) then {
         GVAR(down) = true;
     };
     true
-}, {}, [DIK_DOWNARROW, [false, false, true]]] call cba_fnc_addKeybind;
+}, {}, [DIK_DOWNARROW, [false, false, true]]] call CBA_fnc_addKeybind;
 
-["Tao's Folding Map Rewrite", "moveleft", "Move Left", {
+[COMPONENT_NAME, QGVAR(moveLeftMap), "Move Left", {
     if (GVAR(isOpen)) then {
         GVAR(left) = true;
     };
     true
-}, {}, [DIK_LEFTARROW, [false, false, true]]] call cba_fnc_addKeybind;
+}, {}, [DIK_LEFTARROW, [false, false, true]]] call CBA_fnc_addKeybind;
 
-["Tao's Folding Map Rewrite", "moveright", "Move Right", {
+[COMPONENT_NAME, QGVAR(moveRightMap), "Move Right", {
     if (GVAR(isOpen)) then {
         GVAR(right) = true;
     };
     true
-}, {}, [DIK_RIGHTARROW, [false, false, true]]] call cba_fnc_addKeybind;
+}, {}, [DIK_RIGHTARROW, [false, false, true]]] call CBA_fnc_addKeybind;
+
+[COMPONENT_NAME, QGVAR(configureMap), "Configure Map",
+    ["player", [], -100, QUOTE(call FUNC(fleximenu))],
+[DIK_M, [false, true, true]]] call CBA_fnc_addKeybindToFleximenu;
 
 ADDON = true;

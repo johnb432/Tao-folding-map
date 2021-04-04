@@ -10,17 +10,34 @@
  * None
  *
  * Example:
- * [time] call tao_foldmap_fnc_moveMapOnscreen;
+ * [2] call tao_foldmap_fnc_moveMapOnscreen;
  *
  * Public: No
  */
 
 params ["_time"];
 
-private _mapPosY = MAP_YPOS - STATUS_YOFFSET;
+// If the UI needs to be calculated due to scale change
+if (MAP_SIZE isNotEqualTo GVAR(mapScaleResize)) then {
+    call FUNC(calcPosUI);
+};
+
+// Rescale minimap elements, except map due to bugginess
+(FOLDMAP displayCtrl BACKGROUND) ctrlSetScale GVAR(mapScaleResize);
+(FOLDMAP displayCtrl STATUSBAR) ctrlSetScale GVAR(mapScaleResize);
+(FOLDMAP displayCtrl STATUSRIGHT) ctrlSetScale GVAR(mapScaleResize);
+(FOLDMAP displayCtrl STATUSLEFT) ctrlSetScale GVAR(mapScaleResize);
+
+(FOLDMAP displayCtrl BACKGROUND) ctrlCommit 0;
+(FOLDMAP displayCtrl STATUSBAR) ctrlCommit 0;
+(FOLDMAP displayCtrl STATUSRIGHT) ctrlCommit 0;
+(FOLDMAP displayCtrl STATUSLEFT) ctrlCommit 0;
+
+// Set position of minimap
+private _mapPosY = MAP_YPOS - GVAR(statusYOffset);
 
 (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlSetPosition [MAP_XPOS, MAP_YPOS];
-(FOLDMAP displayCtrl BACKGROUND) ctrlSetPosition [BACK_XPOS, BACK_YPOS];
+(FOLDMAP displayCtrl BACKGROUND) ctrlSetPosition [GVAR(backgroundXPos), GVAR(backgroundYPos)];
 (FOLDMAP displayCtrl STATUSBAR) ctrlSetPosition [MAP_XPOS, _mapPosY];
 (FOLDMAP displayCtrl STATUSRIGHT) ctrlSetPosition [MAP_XPOS, _mapPosY];
 (FOLDMAP displayCtrl STATUSLEFT) ctrlSetPosition [MAP_XPOS, _mapPosY];

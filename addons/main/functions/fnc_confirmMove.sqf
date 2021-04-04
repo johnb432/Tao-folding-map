@@ -15,19 +15,20 @@
  * Public: No
  */
 
-private _pos = ctrlPosition (MOVEME displayCtrl 10);
-private _posX = _pos select 0;
-private _posY = _pos select 1;
-
+// Get current repositioning display data and close repositioning afterwards
+ctrlPosition (MOVEME displayCtrl 10) params ["_posX", "_posY"];
 MOVEME closeDisplay 0;
 
 // Make sure new positions are reasonable.
-if (_posX > safeZoneXAbs && {_posY > SAFEZONE_Y} && {_posX < safeZoneWAbs} && {_posY < SAFEZONE_H}) then {
-   	[0.2] call FUNC(moveMapOnscreen);
+if (_posX > safeZoneXAbs && {_posY > safeZoneY} && {_posX < safeZoneWAbs} && {_posY < safeZoneH}) then {
+    // Save to profile namespace.
+    GVAR(backgroundXPos) = (_posX - MAP_XPOS) + GVAR(backgroundXPos);
+    GVAR(backgroundYPos) = (_posY - MAP_YPOS) + GVAR(backgroundYPos);
 
-   	// Save to profile namespace.
-   	SETPRVAR(mapPosX, _posX);
-   	SETPRVAR(mapPosY, _posY);
+    MAP_XPOS_SET(_posX);
+    MAP_YPOS_SET(_posY);
+
+    [0.2] call FUNC(moveMapOnscreen);
 } else {
-   	systemChat "Invalid position.";
+    systemChat "Invalid position.";
 };
