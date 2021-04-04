@@ -1,3 +1,11 @@
+4.2.0
+- Added 3 different folding map sizes that can be toggled.
+- Added ability to change different tracking types in fleximenu. However, it can still be locked using CBA settings.
+- Added a settable refresh rate slider to the settings.
+- Further overhaul of code
+- GPS no longer has to be open to get automatic tracking
+- More
+
 4.1.0
 - Added "Require GPS to update position automatically" setting which is always set to true, unless the server specifies otherwise.
 

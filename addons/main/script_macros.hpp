@@ -22,28 +22,45 @@
 #define FUDGEFACTOR 0.2
 
 // Hardcoded defaults.
-#define SAFEZONE_X safeZoneX
-#define SAFEZONE_Y safeZoneY
-#define SAFEZONE_H safeZoneH
-#define SAFEZONE_W safeZoneW
-#define DEFAULT_MAP_XPOS (SAFEZONE_X + (SAFEZONE_W * 0.035))
-#define DEFAULT_MAP_YPOS (SAFEZONE_Y + (SAFEZONE_H * 0.304))
+// Where to place the map
+#define DEFAULT_MAP_XPOS (safeZoneX + (safeZoneW * 0.035))
+#define DEFAULT_MAP_YPOS (safeZoneY + (safeZoneH * 0.304))
+// Shaking values
 #define SHAKETIME 0.4
+// For size reductions of UI
+#define DEFAULT_MAP_SIZE 1
+#define SIZE_REDUCTION 0.90
+#define SIZE_REDUCTION_NUM 3
+#define OFFSET_X 210
+#define OFFSET_Y_TABLET 70
+#define OFFSET_Y_PAPER 64
+// Zoom levels
+#define ZOOM_CONSTANT 0.9
+#define ZOOM_1 ZOOM_CONSTANT
+#define ZOOM_2 (ZOOM_1 * ZOOM_CONSTANT)
 
-// Relative positioning defines.
-#define MAP_XPOS (GETPRVAR(mapPosX, DEFAULT_MAP_XPOS))
-#define MAP_YPOS (GETPRVAR(mapPosY, DEFAULT_MAP_YPOS))
-#define BACK_XPOS (MAP_XPOS - (SAFEZONE_H * 0.093))
-#define BACK_YPOS (MAP_YPOS - (SAFEZONE_H * 0.046))
-#define STATUS_YOFFSET (SAFEZONE_H * 0.015)
-#define STATUSTEXT_YOFFSET (STATUS_YOFFSET + (SAFEZONE_H * 0.001))
+// Relative positioning defines. Getters
+#define MAP_XPOS (GETPRVAR(GVAR(mapPosX),DEFAULT_MAP_XPOS))
+#define MAP_YPOS (GETPRVAR(GVAR(mapPosY),DEFAULT_MAP_YPOS))
+#define MAP_SIZE (GETPRVAR(GVAR(mapSize),DEFAULT_MAP_SIZE))
+#define DRAW_STYLE (GETPRVAR(GVAR(drawStyle),"paper"))
+
+// Setters
+#define MAP_XPOS_SET(var) (SETPRVAR(GVAR(mapPosX),var))
+#define MAP_YPOS_SET(var) (SETPRVAR(GVAR(mapPosY),var))
+#define MAP_SIZE_SET(var) (SETPRVAR(GVAR(mapSize),var))
+#define DRAW_STYLE_SET(var) (SETPRVAR(GVAR(drawStyle),var))
 
 // Display control ID defines.
-#define FOLDMAP (GETUVAR(Tao_FoldMap, nil))
-#define MOVEME (GETUVAR(Tao_FoldMap_MovingDialog, nil))
+#define FOLDMAP (GETUVAR(GVAR(foldMap),nil))
+#define MOVEME (GETUVAR(GVAR(foldMapMovingDialog),nil))
 #define BACKGROUND 23
 #define DAYMAP 40
-#define NIGHTMAP 41
+#define DAYMAP_ZOOM_1 41
+#define DAYMAP_ZOOM_2 42
+#define NIGHTMAP 43
+#define NIGHTMAP_ZOOM_1 44
+#define NIGHTMAP_ZOOM_2 45
 #define STATUSBAR 30
 #define STATUSRIGHT 31
 #define STATUSLEFT 32

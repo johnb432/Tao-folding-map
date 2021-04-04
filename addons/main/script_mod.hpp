@@ -10,11 +10,7 @@
 #define TAO_REWRITE_TAG TAO_REWRITE
 
 // MINIMAL required version for the Mod. Components can specify others..
-#define REQUIRED_VERSION 1.96
+#define REQUIRED_VERSION 2.02
 #define REQUIRED_CBA_VERSION {3,12,2}
 
-#ifdef COMPONENT_BEAUTIFIED
-    #define COMPONENT_NAME QUOTE(Tao Rewrite - COMPONENT_BEAUTIFIED)
-#else
-    #define COMPONENT_NAME QUOTE(Tao Rewrite - COMPONENT)
-#endif
+#define COMPONENT_NAME QUOTE(Tao's Folding Map Rewrite)

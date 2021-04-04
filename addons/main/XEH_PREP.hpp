@@ -1,3 +1,4 @@
+PREPFNC(calcPosUI);
 PREPFNC(confirmMove);
 PREPFNC(fleximenu);
 PREPFNC(moveMapOffscreen);
@@ -6,6 +7,9 @@ PREPFNC(nvMode);
 PREPFNC(onLoadDialog);
 PREPFNC(onLoadMovingDialog);
 PREPFNC(openFoldmap);
+PREPFNC(PFHautomatic);
+PREPFNC(PFHcentered);
+PREPFNC(PFHmanual);
 PREPFNC(refreshMap);
 PREPFNC(toggleMap);
 PREPFNC(zoomIn);

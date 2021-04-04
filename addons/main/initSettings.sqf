@@ -1,9 +1,9 @@
 [
     QGVAR(enableMap),
-    "LIST",
+    "CHECKBOX",
     ["Map", "Enables the addon. Makes it easy to disable instead of unloading the mod."],
-    ["Tao's Folding Map Rewrite", "Locks"],
-    [[false, true], ["Disabled", "Enabled"], 1],
+    [COMPONENT_NAME, "Locks"],
+    true,
     false,
     {
         if (GVAR(isOpen)) then {
@@ -14,16 +14,17 @@
 ] call CBA_fnc_addSetting;
 
 [
-    QGVAR(mapTypeUnlocked),
-    "LIST",
+    QGVAR(mapTypeLocked),
+    "CHECKBOX",
     ["Lock map type", "Locks the map type to paper. Handy for pre-GPS missions."],
-    ["Tao's Folding Map Rewrite", "Locks"],
-    [[false, true], ["Locked to Paper", "Unlocked"], 1],
+    [COMPONENT_NAME, "Locks"],
+    false,
     false,
     {
-        if (!GVAR(mapTypeUnlocked)) then {
+        if (GVAR(mapTypeLocked)) then {
             GVAR(drawPaper) = true;
-            SETPRVAR(drawStyle, "paper");
+            DRAW_STYLE_SET("paper");
+
             if (GVAR(isOpen)) then {
                 call FUNC(refreshMap);
             };
@@ -36,10 +37,12 @@
     QGVAR(allowAdjust),
     "LIST",
     ["Keep player on map", "Automatic adjusts the map to keep you on the map. Always centered keeps the player centered at all times. When set to manual you have to move the map yourself [see keybinds]."],
-    ["Tao's Folding Map Rewrite", "Locks"],
+    [COMPONENT_NAME, "Locks"],
     [[1, 0, 2], ["Manual", "Automatic", "Always centered"], 1],
     false,
     {
+        GVAR(adjustMode) = GVAR(allowAdjust);
+
         if (GVAR(isOpen)) then {
             call FUNC(refreshMap);
         };
@@ -48,11 +51,30 @@
 ] call CBA_fnc_addSetting;
 
 [
+    QGVAR(allowAdjustLocked),
+    "CHECKBOX",
+    ["Lock 'Keep player on map'", "Forces the setting above."],
+    [COMPONENT_NAME, "Locks"],
+    false,
+    false,
+    {
+        if (GVAR(allowAdjustLocked)) then {
+            GVAR(adjustMode) = GVAR(allowAdjust);
+
+            if (GVAR(isOpen)) then {
+                call FUNC(refreshMap);
+            };
+        };
+    },
+    false
+] call CBA_fnc_addSetting;
+
+[
     QGVAR(GPSAdjust),
-    "LIST",
-    ["Require open GPS to adjust automatically", "If set to true, you will need a GPS panel open to be able to use the automatic adjusting modes."],
-    ["Tao's Folding Map Rewrite", "Locks"],
-    [[true, false], ["No", "Yes"], 1],
+    "CHECKBOX",
+    ["Require GPS panel to adjust automatically", "If set to true, you will need a GPS panel to be able to use the automatic adjusting modes."],
+    [COMPONENT_NAME, "Locks"],
+    true,
     true,
     {
         if (GVAR(isOpen)) then {
@@ -64,10 +86,10 @@
 
 [
     QGVAR(reposMap),
-    "LIST",
+    "CHECKBOX",
     ["Map repositioning", "Allows the repositioning of the map on the player's screen."],
-    ["Tao's Folding Map Rewrite", "Locks"],
-    [[false, true], ["Locked", "Unlocked"], 1],
+    [COMPONENT_NAME, "Locks"],
+    true,
     false,
     {},
     false
@@ -77,17 +99,15 @@
     QGVAR(prefMap),
     "LIST",
     ["Preferred map type", "Sets preferred map type."],
-    ["Tao's Folding Map Rewrite", "Preferences"],
+    [COMPONENT_NAME, "Preferences"],
     [[false, true], ["Tablet", "Paper"], 0],
     false,
     {
-        if (GVAR(mapTypeUnlocked)) then {
+        if (!GVAR(mapTypeLocked)) then {
             GVAR(drawPaper) = GVAR(prefMap);
-            if (GVAR(drawPaper)) then {
-                SETPRVAR(drawStyle, "paper");
-            } else {
-                SETPRVAR(drawStyle, "tablet");
-            };
+
+            DRAW_STYLE_SET(["tablet", "paper"] select GVAR(drawPaper));
+
             if (GVAR(isOpen)) then {
                 call FUNC(refreshMap);
             };
@@ -98,10 +118,10 @@
 
 [
     QGVAR(closeMap),
-    "LIST",
+    "CHECKBOX",
     ["Close map", "Closes the map every time the vanilla map is opened."],
-    ["Tao's Folding Map Rewrite", "Preferences"],
-    [[false, true], ["Disabled", "Enabled"], 1],
+    [COMPONENT_NAME, "Preferences"],
+    true,
     false,
     {},
     false
@@ -111,7 +131,7 @@
     QGVAR(closeView),
     "LIST",
     ["Keep map open in", "Keep the map open every time you enter despite switching perspectives."],
-    ["Tao's Folding Map Rewrite", "Preferences"],
+    [COMPONENT_NAME, "Preferences"],
     [[["INTERNAL","EXTERNAL"], ["INTERNAL","EXTERNAL","GUNNER"], ["INTERNAL","EXTERNAL","GROUP"], ["INTERNAL","EXTERNAL","GUNNER","GROUP"]], ["1st & 3rd perspectives", "1st, 3rd & gunner perspectives", "1st, 3rd & commander perspectives", "All perspectives"], 0],
     false,
     {},
@@ -120,12 +140,32 @@
 
 [
     QGVAR(allowShake),
-    "LIST",
+    "CHECKBOX",
     ["Allow shake", "Allows shaking/bobbling of the map while moving on foot."],
-    ["Tao's Folding Map Rewrite", "Preferences"],
-    [[false, true], ["Disabled", "Enabled"], 1],
+    [COMPONENT_NAME, "Preferences"],
+    true,
     false,
     {
+        GVAR(allowShakeMap) = GVAR(allowShake);
+        if (GVAR(isOpen)) then {
+            call FUNC(refreshMap);
+        };
+    },
+    false
+] call CBA_fnc_addSetting;
+
+[
+    QGVAR(refreshRate),
+    "SLIDER",
+    ["Refresh rate", "Sets the refresh time in seconds. 0 is every frame. Anything above 0.1 turns off map shake."],
+    [COMPONENT_NAME, "Preferences"],
+    [0, 2, 0, 2],
+    false,
+    {
+        if (GVAR(refreshRate) > 0.1) then {
+            GVAR(allowShakeMap) = false;
+        };
+
         if (GVAR(isOpen)) then {
             call FUNC(refreshMap);
         };
@@ -135,10 +175,10 @@
 
 [
     QGVAR(mapIcon),
-    "LIST",
-    ["Icon on map", "Enables tracking of a person on the tablet. An arrow is placed where the person is currently at. A vanilla GPS/NAV panel has to be open for it to work (Right-Ctrl M to open it by default)."],
-    ["Tao's Folding Map Rewrite", "Tablet"],
-    [[false, true], ["Disabled", "Enabled"], 1],
+    "CHECKBOX",
+    ["Icon on map", "Enables tracking of a person on the tablet. An arrow is placed where the person is currently at. A vanilla GPS/NAV panel has to be present for it to work (not necessarily open!)."],
+    [COMPONENT_NAME, "Tablet"],
+    true,
     false,
     {
         if (!GVAR(drawPaper) && {GVAR(isOpen)}) then {
@@ -150,10 +190,10 @@
 
 [
     QGVAR(gridRef),
-    "LIST",
-    ["Tablet gridref", "Enables a grid reference on the tablet if the person has a vanilla GPS/NAV panel open."],
-    ["Tao's Folding Map Rewrite", "Tablet"],
-    [[false, true], ["Disabled", "Enabled"], 1],
+    "CHECKBOX",
+    ["Tablet gridref", "Enables a grid reference on the tablet if the person has a vanilla GPS/NAV panel."],
+    [COMPONENT_NAME, "Tablet"],
+    true,
     false,
     {
         if (!GVAR(drawPaper) && {GVAR(isOpen)}) then {
@@ -167,7 +207,7 @@
     QGVAR(isNightMap),
     "LIST",
     ["Preferred tablet mode", "Sets the preferred tablet mode."],
-    ["Tao's Folding Map Rewrite", "Tablet"],
+    [COMPONENT_NAME, "Tablet"],
     [[true, false], ["Night", "Day"], 1],
     false,
     {

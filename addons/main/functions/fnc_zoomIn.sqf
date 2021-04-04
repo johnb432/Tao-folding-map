@@ -15,12 +15,10 @@
  * Public: No
  */
 
-if (GVAR(mapScale) / 2 > 0.005) then { // Don't allow excessive zoom
-    GVAR(mapScale) = GVAR(mapScale) / 2;
+// Don't allow excessive zoom
+if (GVAR(mapScale) / 2 < 0.005) exitWith {};
+GVAR(mapScale) = GVAR(mapScale) / 2;
 
-    private _pos = [GVAR(centerPos), getPos player] select (GVAR(allowAdjust) != 1 && {visibleGPS || GVAR(GPSAdjust)});
-
-    (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
-    ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
-    GVAR(needsScaleReset) = true;
-};
+(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), ([GVAR(centerPos), getPos player] select (GVAR(adjustMode) isNotEqualTo 1 && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}}))];
+ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+GVAR(needsScaleReset) = true;

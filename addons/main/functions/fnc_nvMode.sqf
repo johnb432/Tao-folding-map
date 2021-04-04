@@ -18,11 +18,12 @@
 // Change which map is in use
 GVAR(isNightMap) = !GVAR(isNightMap);
 
-GVAR(mapCtrlActive) = [DAYMAP, NIGHTMAP] select (GVAR(isNightMap));
-GVAR(mapCtrlInactive) = [NIGHTMAP, DAYMAP] select (GVAR(isNightMap));
+private _selection = ([0, 3] select GVAR(isNightMap)) + (round (log (MAP_SIZE) / log (0.9)));
+GVAR(mapCtrlActive) = [DAYMAP, DAYMAP_ZOOM_1, DAYMAP_ZOOM_2, NIGHTMAP, NIGHTMAP_ZOOM_1, NIGHTMAP_ZOOM_2] select _selection;
+GVAR(mapCtrlInactive) = [NIGHTMAP, NIGHTMAP_ZOOM_1, NIGHTMAP_ZOOM_2, DAYMAP, DAYMAP_ZOOM_1, DAYMAP_ZOOM_2] select _selection;
 
 // Give new map the scale/centering properties of the old map.
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [GVAR(centerPos) select 0, GVAR(centerPos) select 1, 0]];
+(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
 ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
 
 // Show the new map.
@@ -32,13 +33,13 @@ ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
 
 // Hide the old map.
 (FOLDMAP displayCtrl GVAR(mapCtrlInactive)) ctrlShow false;
-(FOLDMAP displayCtrl GVAR(mapCtrlInactive)) ctrlSetPosition [MAP_XPOS, SAFEZONE_H];
+(FOLDMAP displayCtrl GVAR(mapCtrlInactive)) ctrlSetPosition [MAP_XPOS, safeZoneH];
 (FOLDMAP displayCtrl GVAR(mapCtrlInactive)) ctrlCommit 0;
 
 //'Refolds' the map to recenter it.
-if (GVAR(allowAdjust) == 0 && {visibleGPS || {GVAR(GPSAdjust)}}) then {
-   	private _pos = getPos player;
-   	(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), [_pos select 0, _pos select 1, 0]];
-   	ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
-   	GVAR(centerPos) = [_pos select 0, _pos select 1];
+if (GVAR(adjustMode) isEqualTo 0 && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}}) then {
+    private _pos = getPos player;
+    (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), _pos];
+    ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+    GVAR(centerPos) = _pos;
 };
