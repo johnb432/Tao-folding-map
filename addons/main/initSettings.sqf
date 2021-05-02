@@ -106,7 +106,8 @@
         if (!GVAR(mapTypeLocked)) then {
             GVAR(drawPaper) = GVAR(prefMap);
 
-            DRAW_STYLE_SET(["tablet", "paper"] select GVAR(drawPaper));
+            DRAW_STYLE_SET([ARR_2("tablet","paper")] select GVAR(drawPaper));
+            GVAR(mapNeedsResize) = true;
 
             if (GVAR(isOpen)) then {
                 call FUNC(refreshMap);

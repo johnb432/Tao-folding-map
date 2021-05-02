@@ -1,3 +1,6 @@
+4.2.1
+- Fixed bug when starting missions where the map type was overwritten by last choice
+
 4.2.0
 - Added 3 different folding map sizes that can be toggled.
 - Added ability to change different tracking types in fleximenu. However, it can still be locked using CBA settings.

@@ -41,6 +41,7 @@
                 // Save new style to profile namespace.
                 DRAW_STYLE_SET(_type);
                 GVAR(drawPaper) = [false, true] select (_type isEqualTo "paper");
+                GVAR(mapNeedsResize) = true;
 
                 if (GVAR(isOpen)) then {
                     call FUNC(refreshMap);
@@ -126,9 +127,8 @@
             "Toggle Scale",
             {
                 if (GVAR(isOpen)) then {
-                    // Gets how many times the map has been reduced
-                    private _scale = [1, MAP_SIZE * SIZE_REDUCTION] select (MAP_SIZE > 0.82);
-                    MAP_SIZE_SET(_scale);
+                    // Gets how many times the map has been reduced and sets new factor
+                    MAP_SIZE_SET([ARR_2(1, MAP_SIZE * SIZE_REDUCTION)] select (MAP_SIZE > 0.82));
                     GVAR(mapNeedsResize) = true;
 
                     call FUNC(refreshMap);

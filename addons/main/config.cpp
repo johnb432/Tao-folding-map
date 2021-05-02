@@ -19,10 +19,10 @@ class CfgPatches {
 
 class CfgMods {
     class PREFIX {
-        name = "Tao's folding map rewrite"
+        name = COMPONENT_NAME;
         actionName = "GitHub";
         action = "https://github.com/johnb432/Tao-folding-map";
-        description = "Tao's folding map rewrite";
+        description = COMPONENT_NAME;
     };
 };
 

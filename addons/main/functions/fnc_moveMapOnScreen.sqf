@@ -18,7 +18,7 @@
 params ["_time"];
 
 // If the UI needs to be calculated due to scale change
-if (MAP_SIZE isNotEqualTo GVAR(mapScaleResize)) then {
+if (GVAR(mapNeedsResize) || {MAP_SIZE isNotEqualTo GVAR(mapScaleResize)}) then {
     call FUNC(calcPosUI);
 };
 
