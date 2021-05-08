@@ -16,9 +16,6 @@ GVAR(isOpen) = false;
 // Initialize shaking values.
 GVAR(shake) = false;
 
-// Initialize found a GPS value.
-GVAR(foundGPS) = false;
-
 // Initialize map refresh value
 GVAR(isRefreshing) = false;
 

@@ -17,6 +17,6 @@
 
 GVAR(mapScale) = (GVAR(mapScale) * 2) min 1;
 
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), ([GVAR(centerPos), getPos player] select (GVAR(adjustMode) isNotEqualTo 1 && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}}))];
+(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), ([GVAR(centerPos), getPos player] select (GVAR(adjustMode) isNotEqualTo 1 && {shownGPS || {!GVAR(GPSAdjust)}}))];
 ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
 GVAR(needsScaleReset) = true;

@@ -1,3 +1,6 @@
+4.2.2
+- Added support for 3rd party maps and GPS
+
 4.2.1
 - Fixed bug when starting missions where the map type was overwritten by last choice
 

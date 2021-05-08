@@ -101,7 +101,7 @@
             "",
             [],
             DIK_A,
-            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 0} && {!GVAR(allowAdjustLocked)} && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}},
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 0} && {!GVAR(allowAdjustLocked)} && {shownGPS || {!GVAR(GPSAdjust)}},
             true
         ],
 
@@ -118,7 +118,7 @@
             "",
             [],
             DIK_T,
-            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 2} && {!GVAR(allowAdjustLocked)} && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}},
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 2} && {!GVAR(allowAdjustLocked)} && {shownGPS || {!GVAR(GPSAdjust)}},
             true
         ],
 

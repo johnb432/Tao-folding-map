@@ -18,9 +18,7 @@
 [{
     params ["_time", "_handleid"];
 
-    GVAR(foundGPS) = ((player infoPanelComponents "left") findIf {(_x select 1) isEqualTo "MinimapDisplayComponent" && {_x select 2}}) isNotEqualTo -1;
-
-    if (!GVAR(enableMap) || {!GVAR(doShow)} || {visibleMap && GVAR(closeMap)} || {!("ItemMap" in assignedItems player || {GVAR(foundGPS)})} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {
+    if (!GVAR(enableMap) || {!GVAR(doShow)} || {visibleMap && GVAR(closeMap)} || {!(shownMap || shownGPS)} || {!(cameraView in GVAR(closeView))} || {!alive player}) exitWith {
         [_handleid] call CBA_fnc_removePerFrameHandler;
         // Scroll the map off the screen.
         [SCROLLTIME] call FUNC(moveMapOffscreen);
@@ -39,7 +37,7 @@
         (FOLDMAP displayCtrl STATUSRIGHT) ctrlSetText (format ["%1/%2/%3  %4  ||||||", date select 0, date select 1, date select 2, [dayTime] call BIS_fnc_timeToString]);
 
         // If setting "enable gridref" is enabled and a GPS panel is available, draw the grid reference on the status bar of the tablet.
-        (FOLDMAP displayCtrl STATUSLEFT) ctrlSetText (["", format ["GRID %1", mapGridPosition player]] select (GVAR(foundGPS) && {GVAR(gridRef)}));
+        (FOLDMAP displayCtrl STATUSLEFT) ctrlSetText (["", format ["GRID %1", mapGridPosition player]] select (shownGPS && {GVAR(gridRef)}));
     };
 
     if (ctrlCommitted (FOLDMAP displayCtrl BACKGROUND) && {GVAR(allowShakeMap)}) then {
@@ -90,7 +88,7 @@
         GVAR(pageHeight) = abs ((_upperLeftCornerPos select 1) - (_bottomRightCornerPos select 1));
     };
 
-    if (GVAR(foundGPS) || {!GVAR(GPSAdjust)}) then {
+    if (shownGPS || {!GVAR(GPSAdjust)}) then {
         // If the player has gotten off the page somehow, re-center the map.
         private _playerPos = getPos player;
         private _wts = (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapWorldToScreen _playerPos;

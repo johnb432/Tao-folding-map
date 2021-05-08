@@ -14,7 +14,7 @@ PREP_RECOMPILE_END;
 }, {}, [DIK_M, [false, false, true]]] call CBA_fnc_addKeybind;
 
 [COMPONENT_NAME, QGVAR(refoldMap), "Refold map", {
-    if (GVAR(isOpen) && {GVAR(adjustMode) isEqualTo 0} && {GVAR(foundGPS) || {!GVAR(GPSAdjust)}}) then {
+    if (GVAR(isOpen) && {GVAR(adjustMode) isEqualTo 0} && {shownGPS || {!GVAR(GPSAdjust)}}) then {
         GVAR(centerPos) = getPos player;
        	(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
        	ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));

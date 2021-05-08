@@ -16,8 +16,7 @@
  */
 
 // Exit if in an invalid state for foldmap to open or if map is already open.
-if (!GVAR(enableMap) || {GVAR(isOpen)} || {visibleMap && GVAR(closeMap)} || {!(cameraView in GVAR(closeView))} || {!alive player}
-    || {!("ItemMap" in assignedItems player || {(player infoPanelComponents "left") findIf {(_x select 1) isEqualTo "MinimapDisplayComponent" && {_x select 2}} isEqualTo -1})}) exitWith {};
+if (!GVAR(enableMap) || {GVAR(isOpen)} || {visibleMap && GVAR(closeMap)} || {!(cameraView in GVAR(closeView))} || {!alive player} || {!(shownMap || shownGPS)}) exitWith {};
 
 // Initialize the dialog.
 GVAR(isOpen) = true;
