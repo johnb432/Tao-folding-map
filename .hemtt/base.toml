@@ -1,0 +1,13 @@
+name = "Tao-folding-map-rewrite"
+prefix = "tao_rewrite"
+author = "johnb43"
+template = "cba"
+mainprefix = "x"
+files = [
+    "CHANGELOG.md",
+    "mod.cpp",
+    "LICENSE",
+    "README.md"
+]
+folder_optionals = false
+sig_version = 3
