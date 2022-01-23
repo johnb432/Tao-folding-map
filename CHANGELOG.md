@@ -1,10 +1,18 @@
-4.2.2
-- Added support for 3rd party maps and GPS
+4.2.3.0
+- Added hemtt support.
+- Added support for 2.06.
+- Added support for moving and resizing map via in-game UI layout editor.
+- Added better darkening/dimming code from Dystopian (ACE3).
+- Removed animations (scrolling map on and off screen, shaking). Commands do not make it easily possible with resizable GUI.
+- Removed "Allow repositioning" CBA setting, as repositioning is now done via in-game UI layout editor.
 
-4.2.1
-- Fixed bug when starting missions where the map type was overwritten by last choice
+4.2.2.0
+- Added support for 3rd party maps and GPS.
 
-4.2.0
+4.2.1.0
+- Fixed bug when starting missions where the map type was overwritten by last choice.
+
+4.2.0.0
 - Added 3 different folding map sizes that can be toggled.
 - Added ability to change different tracking types in fleximenu. However, it can still be locked using CBA settings.
 - Added a settable refresh rate slider to the settings.
@@ -12,10 +20,10 @@
 - GPS no longer has to be open to get automatic tracking
 - More
 
-4.1.0
+4.1.0.0
 - Added "Require GPS to update position automatically" setting which is always set to true, unless the server specifies otherwise.
 
-4.0.0
+4.0.0.0
 - Massive clean up. Should be "lighter".
 
 3.1.3

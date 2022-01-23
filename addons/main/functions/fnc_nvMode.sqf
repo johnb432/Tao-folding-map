@@ -1,4 +1,5 @@
 #include "script_component.hpp"
+
 /*
  * Author: johnb43
  * Toggle the map's nightvision view (if using tablet map).
@@ -18,28 +19,40 @@
 // Change which map is in use
 GVAR(isNightMap) = !GVAR(isNightMap);
 
-private _selection = ([0, 3] select GVAR(isNightMap)) + (round (log (MAP_SIZE) / log (0.9)));
-GVAR(mapCtrlActive) = [DAYMAP, DAYMAP_ZOOM_1, DAYMAP_ZOOM_2, NIGHTMAP, NIGHTMAP_ZOOM_1, NIGHTMAP_ZOOM_2] select _selection;
-GVAR(mapCtrlInactive) = [NIGHTMAP, NIGHTMAP_ZOOM_1, NIGHTMAP_ZOOM_2, DAYMAP, DAYMAP_ZOOM_1, DAYMAP_ZOOM_2] select _selection;
+GVAR(mapCtrlActive) = [IDC_DAYMAP, IDC_NIGHTMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
+GVAR(mapCtrlInactive) = [IDC_NIGHTMAP, IDC_DAYMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
+
+private _foldmap = FOLDMAP;
+private _controlActiveMap = _foldmap displayCtrl GVAR(mapCtrlActive);
+private _controlInactiveMap = _foldmap displayCtrl GVAR(mapCtrlInactive);
 
 // Give new map the scale/centering properties of the old map.
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
-ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+_controlActiveMap ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
+ctrlMapAnimCommit _controlActiveMap;
 
-// Show the new map.
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlSetPosition (ctrlPosition (FOLDMAP displayCtrl GVAR(mapCtrlInactive)));
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlCommit 0;
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlShow true;
+// Show the new map
 
-// Hide the old map.
-(FOLDMAP displayCtrl GVAR(mapCtrlInactive)) ctrlShow false;
-(FOLDMAP displayCtrl GVAR(mapCtrlInactive)) ctrlSetPosition [MAP_XPOS, safeZoneH];
-(FOLDMAP displayCtrl GVAR(mapCtrlInactive)) ctrlCommit 0;
+/*
+2.08
 
-//'Refolds' the map to recenter it.
-if (GVAR(adjustMode) isEqualTo 0 && {shownGPS || {!GVAR(GPSAdjust)}}) then {
-    private _pos = getPos player;
-    (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), _pos];
-    ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
-    GVAR(centerPos) = _pos;
+_controlActiveMap ctrlMapSetPosition (ctrlMapPosition _controlInactiveMap);
+*/
+(ctrlPosition (_foldmap displayCtrl IDC_STATUSBAR)) params ["", "", "_width", "_height"];
+_controlActiveMap ctrlMapSetPosition [
+    POS_X(6.45) + pixelW * OFFSET_X * (SCALE - 1),
+    POS_Y(1.42) + (_height + pixelH * OFFSET_Y_TABLET) * (SCALE - 1),
+    _width * SCALE,
+    _width * SCALE * RATIO_H_W_MAP
+];
+
+_controlActiveMap ctrlShow true;
+
+// Hide the old map
+_controlInactiveMap ctrlShow false;
+
+//'Refolds' the map to recenter it
+if (GVAR(adjustMode) isEqualTo 0 && {GVAR(hasGPS) || {!GVAR(GPSAdjust)}}) then {
+    GVAR(centerPos) = getPosATL (call CBA_fnc_currentUnit);
+    _controlActiveMap ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
+    ctrlMapAnimCommit _controlActiveMap;
 };

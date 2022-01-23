@@ -1,10 +1,11 @@
 #include "script_component.hpp"
+
 /*
  * Author: johnb43
  * onLoad function for foldmap dialog.
  *
  * Arguments:
- * None
+ * 0: Display
  *
  * Return Value:
  * None
@@ -15,74 +16,157 @@
  * Public: No
  */
 
-// If config set, change to paper map.
-if (GVAR(drawPaper)) then {
-    // Change to paper background.
-    (FOLDMAP displayCtrl BACKGROUND) ctrlSetText "\x\tao_rewrite\addons\main\data\paper_ca.paa";
+// Set main control
+SETUVAR(GVAR(foldMap),_this);
 
-    // Hide the status bar.
-    (FOLDMAP displayCtrl STATUSBAR) ctrlShow false;
-    (FOLDMAP displayCtrl STATUSLEFT) ctrlShow false;
-    (FOLDMAP displayCtrl STATUSRIGHT) ctrlShow false;
+// Set active map
+GVAR(mapCtrlActive) = [IDC_DAYMAP, IDC_NIGHTMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
+GVAR(mapCtrlInactive) = [IDC_NIGHTMAP, IDC_DAYMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
+
+private _controlGroup = _this displayCtrl IDC_GROUP;
+private _controlBackground = _this displayCtrl IDC_BACKGROUND;
+private _controlStatusbar = _this displayCtrl IDC_STATUSBAR;
+private _controlStatusbarRight = _this displayCtrl IDC_STATUSRIGHT;
+private _controlStatusbarLeft = _this displayCtrl IDC_STATUSLEFT;
+private _controlActiveMap = _this displayCtrl GVAR(mapCtrlActive);
+private _controlInactiveMap = _this displayCtrl GVAR(mapCtrlInactive);
+
+private _player = call CBA_fnc_currentUnit;
+GVAR(hasGPS) = _player call FUNC(findGPS);
+
+// Change to paper map if wanted
+if (GVAR(drawPaper)) then {
+    // Change to paper background
+    _controlBackground ctrlSetText QPATHTOF(ui\paper.paa);
+
+    // Hide the status bar
+    _controlStatusbar ctrlShow false;
+    _controlStatusbarRight ctrlShow false;
+    _controlStatusbarLeft ctrlShow false;
 };
 
-private _arrayTypes = [DAYMAP, DAYMAP_ZOOM_1, DAYMAP_ZOOM_2, NIGHTMAP, NIGHTMAP_ZOOM_1, NIGHTMAP_ZOOM_2];
-
-private _selection = ([0, 3] select (!GVAR(drawPaper) && {GVAR(isNightMap)})) + (round (log (MAP_SIZE) / log (0.9)));
-GVAR(mapCtrlActive) = _arrayTypes select _selection;
-GVAR(mapCtrlInactive) = [NIGHTMAP, NIGHTMAP_ZOOM_1, NIGHTMAP_ZOOM_2, DAYMAP, DAYMAP_ZOOM_1, DAYMAP_ZOOM_2] select _selection;
-
-// On first run, get the center pos. This is used for all paging thereafter.
-// [a, b] select (true) --> b              tao_rewrite_main_ for GVAR
+// On first run, get the center pos. This is used for all paging thereafter
 if (isNil QGVAR(centerPos)) then {
-    GVAR(centerPos) = [[worldSize / 2, worldSize / 2, 0], getPos player] select (GVAR(adjustMode) isNotEqualTo 1 && (shownGPS || {!GVAR(GPSAdjust)}));
+    GVAR(centerPos) = [[worldSize / 2, worldSize / 2, 0], getPosATL _player] select (GVAR(adjustMode) isNotEqualTo 1 && (GVAR(hasGPS) || {!GVAR(GPSAdjust)}));
 };
 
-// Off-map check for non-manual modes: If the player passed off the map while it was closed, recenter it. Fudge factor here to avoid opening on the edge of the map, which isn't very helpful.
-if (GVAR(adjustMode) isNotEqualTo 1 && {shownGPS || !GVAR(GPSAdjust)} && {abs ((GVAR(centerPos) select 0) - (getPos player select 0)) + 150 > GVAR(pageWidth) || abs ((GVAR(centerPos) select 1) - (getPos player select 1)) + 150 > GVAR(pageHeight)}) then {
-    GVAR(centerPos) = getPos player;
+// Off-map check for non-manual modes: If the player passed off the map while it was closed, recenter it; Fudge factor here to avoid opening on the edge of the map, which isn't very helpful
+if (GVAR(adjustMode) isNotEqualTo 1 && {GVAR(hasGPS) || !GVAR(GPSAdjust)} && {abs ((GVAR(centerPos) select 0) - (getPosATL _player select 0)) + 150 > GVAR(pageWidth) || abs ((GVAR(centerPos) select 1) - (getPosATL _player select 1)) + 150 > GVAR(pageHeight)}) then {
+    GVAR(centerPos) = getPosATL _player;
 };
 
-// Center map on current centering position.
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
-ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+// Center map on current centering position
+_controlActiveMap ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
+ctrlMapAnimCommit _controlActiveMap;
 
-// Hide the unused map.
-{
-    (FOLDMAP displayCtrl _x) ctrlShow false;
-} forEach [DAYMAP, DAYMAP_ZOOM_1, DAYMAP_ZOOM_2, NIGHTMAP, NIGHTMAP_ZOOM_1, NIGHTMAP_ZOOM_2];
-(FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlShow true;
+// Set group position
+_controlGroup ctrlSetPosition [MAP_XPOS, MAP_YPOS, MAP_WIDTH, MAP_HEIGHT];
 
-// Place everything in position to be scrolled.
-[0] call FUNC(moveMapOffscreen);
+private _scale = SCALE;
 
-// Find out which maps are being used, so we apply EH to those only
-private _index = _arrayTypes findIf {_x isEqualTo GVAR(mapCtrlActive)};
+// Set scales; Does not work on map controls
+_controlGroup ctrlSetScale _scale;
+_controlBackground ctrlSetScale _scale;
+_controlStatusbar ctrlSetScale _scale;
+_controlStatusbarRight ctrlSetScale _scale;
+_controlStatusbarLeft ctrlSetScale _scale;
 
-if (_index < 3) then {
-    GVAR(activeDayMap) = _arrayTypes select _index;
-    GVAR(activeNightMap) = _arrayTypes select (_index +  3);
-} else {
-    GVAR(activeDayMap) = _arrayTypes select (_index -  3);
-    GVAR(activeNightMap) = _arrayTypes select _index;
-};
+// Set position, size and scale of all controls
+_controlStatusbar ctrlSetPosition [POS_X(6.45) + pixelW * OFFSET_X * (_scale - 1), POS_Y(0.72) + pixelH * OFFSET_Y_TABLET * (_scale - 1)];
+_controlStatusbarRight ctrlSetPosition [POS_X(6.45) + pixelW * OFFSET_X * (_scale - 1), POS_Y(0.72) + pixelH * OFFSET_Y_TABLET * (_scale - 1)];
+_controlStatusbarLeft ctrlSetPosition [POS_X(6.45) + pixelW * OFFSET_X * (_scale - 1), POS_Y(0.72) + pixelH * OFFSET_Y_TABLET * (_scale - 1)];
 
-// Add per-frame draw handler to update the player marker and darken map.
+// Set font height
+_controlStatusbarRight ctrlSetFontHeight (0.02 * sqrt _scale);
+_controlStatusbarLeft ctrlSetFontHeight (0.02 * sqrt _scale);
+
+_controlGroup ctrlCommit 0;
+_controlBackground ctrlCommit 0;
+_controlStatusbar ctrlCommit 0;
+_controlStatusbarRight ctrlCommit 0;
+_controlStatusbarLeft ctrlCommit 0;
+
+// Set map position once it get in place
+(ctrlPosition _controlStatusbar) params ["", "", "_width", "_height"];
+_controlActiveMap ctrlMapSetPosition [
+    POS_X(6.45) + pixelW * OFFSET_X * (_scale - 1),
+    POS_Y(1.42) + (_height + pixelH * ([OFFSET_Y_TABLET, OFFSET_Y_PAPER] select GVAR(drawPaper))) * (_scale - 1),
+    _width * _scale,
+    _width * _scale * RATIO_H_W_MAP
+];
+_controlInactiveMap ctrlMapSetPosition [
+    POS_X(6.45) + pixelW * OFFSET_X * (_scale - 1),
+    POS_Y(1.42) + (_height + pixelH * ([OFFSET_Y_TABLET, OFFSET_Y_PAPER] select GVAR(drawPaper))) * (_scale - 1),
+    _width * _scale,
+    _width * _scale * RATIO_H_W_MAP
+];
+
+// Hide the unused map
+_controlInactiveMap ctrlShow false;
+
+// Add per-frame draw handler to update the player marker and darken map
 if (GVAR(drawPaper)) then {
-    // Darken paper map based on time. Based on ShackTac Map Brightness by zx64 & Dslyecxi. Draw a dark rectangle covering the map.
-    (FOLDMAP displayCtrl GVAR(activeDayMap)) ctrlAddEventHandler ["Draw", {
-        (FOLDMAP displayCtrl GVAR(activeDayMap)) drawRectangle [((FOLDMAP displayCtrl GVAR(activeDayMap)) ctrlMapScreenToWorld [MAP_XPOS, MAP_YPOS]), GVAR(pageWidth) * 3, GVAR(pageHeight) * 3, 0, [0, 0, 0, (0.72 min (1 - sunOrMoon))], "#(rgb,1,1,1)color(0,0,0,1)"];
+    if (!GVAR(allowPaperMapDarkening)) exitWith {};
+
+    // Darken paper map based on time. Based on ShackTac Map Brightness by zx64 & Dslyecxi. Draw a dark rectangle covering the map
+    (_this displayCtrl IDC_DAYMAP) ctrlAddEventHandler ["Draw", {
+        params ["_mapControl"];
+
+        // Script by Dystopian for the ACE3 mod https://github.com/acemod/ACE3/blob/master/addons/map/functions/fnc_determineMapLight.sqf
+        (getLightingAt (call CBA_fnc_currentUnit)) params ["_ambientLightColor", "_ambientLightBrightness", "_dynamicLightColor", "_dynamicLightBrightness"];
+
+        private _brightness = _ambientLightBrightness + _dynamicLightBrightness;
+        private _lighting = if (_brightness > 3000) then {
+            GVAR(lighting) = [1, 1, 1, 1];
+            [1, 1, 1, 0];
+        } else {
+            private _alpha = switch (true) do {
+                case (_brightness <= 0.2):  {1};
+                case (_brightness <= 2):    {linearConversion [0.2, 2, _brightness, 1, 0.86]};
+                case (_brightness <= 10):   {linearConversion [2, 10, _brightness, 0.86, 0.6]};
+                case (_brightness <= 100):  {linearConversion [10, 100, _brightness, 0.6, 0.3]};
+                case (_brightness <= 200):  {linearConversion [100, 200, _brightness, 0.3, 0.14]};
+                default                     {linearConversion [200, 3000, _brightness, 0.14, 0]};
+            };
+
+            private _finalLightColorMap = [];
+            private _finalLightColorBackground = [];
+            private _finalColor = 0;
+
+            _alpha = _alpha min 0.92;
+
+            {
+                _finalColor = (_ambientLightBrightness * _x + _dynamicLightBrightness * (_dynamicLightColor select _forEachIndex)) / _brightness;
+
+                if (_alpha > 0.5) then {
+                    _finalColor = _finalColor * (1 - _alpha) / 3;
+                };
+
+                _finalLightColorMap pushBack _finalColor;
+            } forEach _ambientLightColor;
+
+            private _color = 1 - _alpha;
+            GVAR(lighting) = [_color, _color, _color, 1];
+
+            _finalLightColorMap pushBack _alpha;
+
+            _finalLightColorMap;
+        };
+
+        _mapControl drawRectangle [_mapControl ctrlMapScreenToWorld [MAP_XPOS, MAP_YPOS], GVAR(pageWidth) * 3, GVAR(pageHeight) * 3, 0, _lighting, "#(rgb,1,1,1)color(0,0,0,1)"];
     }];
 } else {
-    (FOLDMAP displayCtrl GVAR(activeDayMap)) ctrlAddEventHandler ["Draw", {
-        if (GVAR(mapIcon) && {shownGPS}) then {
-            (FOLDMAP displayCtrl GVAR(activeDayMap)) drawIcon [getText(configFile >> "CfgMarkers" >> "mil_arrow2" >> "icon"), [0.06, 0.08, 0.06, 0.87], getPos player, 19, 25, direction vehicle player, "", false];
+    (_this displayCtrl IDC_DAYMAP) ctrlAddEventHandler ["Draw", {
+        if (GVAR(mapIcon) && {GVAR(hasGPS) || !GVAR(requireGPSmapIcon)}) then {
+            private _player = call CBA_fnc_currentUnit;
+            (_this select 0) drawIcon [getText(configFile >> "CfgMarkers" >> "mil_arrow2" >> "icon"), [0.06, 0.08, 0.06, 0.87], getPosATL _player, 19, 25, direction vehicle _player, "", false];
         };
     }];
 
-    (FOLDMAP displayCtrl GVAR(activeNightMap)) ctrlAddEventHandler ["Draw", {
-        if (GVAR(mapIcon) && {shownGPS}) then {
-            (FOLDMAP displayCtrl GVAR(activeNightMap)) drawIcon [getText(configFile >> "CfgMarkers" >> "mil_arrow2" >> "icon"), [0.9, 0.9, 0.9, 0.8], getPos player, 19, 25, direction vehicle player, "", false];
+    (_this displayCtrl IDC_NIGHTMAP) ctrlAddEventHandler ["Draw", {
+        if (GVAR(mapIcon) && {GVAR(hasGPS) || !GVAR(requireGPSmapIcon)}) then {
+            private _player = call CBA_fnc_currentUnit;
+            (_this select 0) drawIcon [getText(configFile >> "CfgMarkers" >> "mil_arrow2" >> "icon"), [0.9, 0.9, 0.9, 0.8], getPosATL _player, 19, 25, direction vehicle _player, "", false];
         };
     }];
 };
