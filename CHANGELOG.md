@@ -1,3 +1,12 @@
+# Changelog for Tao's Folding Map Rewrite 19.3.2022
+
+4.2.3.1
+- Added support for 2.08.
+- Removed "Lock 'Keep player on map'" setting - now enforce tracking types via "Keep player on map" directly.
+- Minor cleanup.
+
+# Changelog for Tao's Folding Map Rewrite 23.1.2022
+
 4.2.3.0
 - Added hemtt support.
 - Added support for 2.06.
@@ -6,11 +15,17 @@
 - Removed animations (scrolling map on and off screen, shaking). Commands do not make it easily possible with resizable GUI.
 - Removed "Allow repositioning" CBA setting, as repositioning is now done via in-game UI layout editor.
 
+# Changelog for Tao's Folding Map Rewrite 8.5.2021
+
 4.2.2.0
 - Added support for 3rd party maps and GPS.
 
+# Changelog for Tao's Folding Map Rewrite 2.5.2021
+
 4.2.1.0
 - Fixed bug when starting missions where the map type was overwritten by last choice.
+
+# Changelog for Tao's Folding Map Rewrite 4.4.2021
 
 4.2.0.0
 - Added 3 different folding map sizes that can be toggled.
@@ -20,19 +35,29 @@
 - GPS no longer has to be open to get automatic tracking
 - More
 
+# Changelog for Tao's Folding Map Rewrite 12.12.2020
+
 4.1.0.0
 - Added "Require GPS to update position automatically" setting which is always set to true, unless the server specifies otherwise.
+
+# Changelog for Tao's Folding Map Rewrite 3.11.2020
 
 4.0.0.0
 - Massive clean up. Should be "lighter".
 
-3.1.3
+# Changelog for Tao's Folding Map Rewrite 1.6.2020
+
+3.1.3.0
 - Clean up. Better README.txt. Changed default keybinds.
 
-3.1.0
+# Changelog for Tao's Folding Map Rewrite 28.5.2020
+
+3.1.0.0
 - Added a setting where you disabled the automatic tracking of players on the maps (you have to manually move it, using the ALT + arrow keys).
 
-3.0.0
+# Changelog for Tao's Folding Map Rewrite 27.5.2020
+
+3.0.0.0
 - Complete overhaul of the mod to include CBA Macros and Settings by johnb43.
 
 2.7.0

@@ -46,16 +46,16 @@ if (!isNil {GETPRVAR(GVAR(mapSize),nil)}) then {
 
 // Make sure data exists, sometimes it fails
 if (GETPRVAR(igui_grid_tao_folding_map_rewrite_x,0) isEqualTo 0) then {
-    SETPRVAR(igui_grid_tao_folding_map_rewrite_x,POS_X(5));
+    MAP_XPOS_SET(POS_X(5));
 };
 if (GETPRVAR(igui_grid_tao_folding_map_rewrite_y,0) isEqualTo 0) then {
-    SETPRVAR(igui_grid_tao_folding_map_rewrite_y,POS_Y(5));
+    MAP_YPOS_SET(POS_Y(5));
 };
 if (GETPRVAR(igui_grid_tao_folding_map_rewrite_w,0) isEqualTo 0) then {
-    SETPRVAR(igui_grid_tao_folding_map_rewrite_w,POS_W(20));
+    MAP_WIDTH_SET(POS_W(20));
 };
 if (GETPRVAR(igui_grid_tao_folding_map_rewrite_h,0) isEqualTo 0) then {
-    SETPRVAR(igui_grid_tao_folding_map_rewrite_h,POS_H(20));
+    MAP_HEIGHT_SET(POS_H(20));
 };
 
 // Refresh map after layout has been changed
@@ -97,3 +97,34 @@ if (GETPRVAR(igui_grid_tao_folding_map_rewrite_h,0) isEqualTo 0) then {
         GVAR(isRefreshing) = nil;
     }] call CBA_fnc_waitUntilAndExecute;
 }] call CBA_fnc_addEventHandler;
+
+// Detect whether setting was globally enforced
+// Need to manually get setting at mission start; EH doesn't trigger
+private _priority = switch (QGVAR(allowAdjust) call CBA_settings_fnc_priority) do {
+    case "client": {
+        (CBA_settings_client getVariable [QGVAR(allowAdjust), [nil, 0]]) select 1;
+    };
+    case "mission": {
+        (CBA_settings_mission getVariable [QGVAR(allowAdjust), [nil, 0]]) select 1;
+    };
+    case "server": {
+        (CBA_settings_server getVariable [QGVAR(allowAdjust), [nil, 0]]) select 1;
+    };
+};
+
+// If globally enforced (1 or 2 -> server or mission), tracking type is locked; 0 is client
+switch (_priority) do {
+    case 1;
+    case 2: {GVAR(allowAdjustLocked) = true};
+    default {GVAR(allowAdjustLocked) = false};
+};
+
+// Read if setting has been broadcasted over network
+QGVAR(allowAdjust) addPublicVariableEventHandler {
+    // Value returns [x1, x2]; x1 is setting value, x2 is globality of setting
+    switch (_this select 1 select 1) do {
+        case 1;
+        case 2: {GVAR(allowAdjustLocked) = true};
+        default {GVAR(allowAdjustLocked) = false};
+    };
+};

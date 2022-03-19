@@ -17,6 +17,17 @@
     #define PREP(fncName) [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call CBA_fnc_compileFunction
 #endif
 
+#define POS_CALC ((safezoneW / safezoneH) min 1.2)
+#define X_OFF (safezoneX + (safezoneW - POS_CALC) / 2)
+#define Y_OFF (safezoneY + (safezoneH - (POS_CALC / 1.2)) / 2)
+#define W_OFF (POS_CALC / 40)
+#define H_OFF (POS_CALC / 30) // (POS_CALC / 1.2) / 25
+
+#define POS_W(var1) (var1 * W_OFF)
+#define POS_H(var1) (var1 * H_OFF)
+#define POS_X(var1) (POS_W(var1) + X_OFF)
+#define POS_Y(var1) (POS_H(var1) + Y_OFF)
+
 // Prevents flickering along edges
 #define FUDGEFACTOR 0.2
 
@@ -44,6 +55,8 @@
 #define MAP_HEIGHT_SET(var) (SETPRVAR(igui_grid_tao_folding_map_rewrite_h,var))
 #define DRAW_STYLE_SET(var) (SETPRVAR(GVAR(drawStyle),var))
 
+#define FOLDMAP (GETUVAR(GVAR(foldMap),displayNull))
+
 // Display & control ID defines.
 #define IDD_INTERRUPT 49
 
@@ -54,16 +67,3 @@
 #define IDC_STATUSBAR 30
 #define IDC_STATUSRIGHT 31
 #define IDC_STATUSLEFT 32
-
-#define FOLDMAP (GETUVAR(GVAR(foldMap),displayNull))
-
-#define POS_CALC ((safezoneW / safezoneH) min 1.2)
-#define X_OFF (safezoneX + (safezoneW - POS_CALC) / 2)
-#define Y_OFF (safezoneY + (safezoneH - (POS_CALC / 1.2)) / 2)
-#define W_OFF (POS_CALC / 40)
-#define H_OFF (POS_CALC / 30) // (POS_CALC / 1.2) / 25
-
-#define POS_W(var1) (var1 * W_OFF)
-#define POS_H(var1) (var1 * H_OFF)
-#define POS_X(var1) (POS_W(var1) + X_OFF)
-#define POS_Y(var1) (POS_H(var1) + Y_OFF)

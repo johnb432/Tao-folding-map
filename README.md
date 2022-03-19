@@ -10,9 +10,8 @@ When "GPS device" is used in this description of the mod, it means you need to h
 * **Keep map open in:** Allows you to define in which perspectives Tao's folding map will not be closed in.
 * **Refresh rate:** Allows you to set the refresh interval at which the map refreshes itself.
 * **Keep player on map:** Always keeps you on the map if set to automatic. On manual, you need to use the "Move up/down/left/right" keys to move the map around. Useful if want to disable automatic centering.
-* **Lock 'Keep player on map':** Enforces the 'Keep player on map' setting, useful for servers.
 * **Require GPS to adjust automatically:** This setting is set to "Yes" by default ***and can only be changed by the server***.
-If set to "Yes" a GPS device will be required in order to have automatic position tracking. The idea is that you need a GPS device to be able to track your position automatically but this can be turned off, if the mission maker/admin wants to.
+When set to "Yes" a GPS device will be required in order to have automatic position tracking. The idea is that you need a GPS device to be able to track your position automatically but this can be turned off, if the mission maker/admin wants to.
 * **Lock map type:** Locks the map type to the paper map. Useful for pre-GPS missions. **Note:** This overrides the "Preferred map type" setting.
 * **Require a paper map for paper map:** If enabled, a paper map will be required to open the paper version of the map.
 * **Allow paper map darkening:** Allows you to disable the darkening of the paper map.
