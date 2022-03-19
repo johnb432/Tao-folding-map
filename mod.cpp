@@ -4,7 +4,6 @@ tooltip = "Tao's Folding Map Rewrite";
 tooltipOwned = "Tao's Folding Map Rewrite";
 hideName = 0;
 hidePicture = 0;
-dir = "@tao_rewrite";
 actionName = "Github";
 action = "https://github.com/johnb432/Tao-folding-map";
 description = "Adds a small map/tablet similar but bigger than the Vanilla GPS. Originally made Taosenai, continued by johnb43.";

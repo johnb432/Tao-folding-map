@@ -21,9 +21,9 @@
     0,
     {
         if (!GVAR(mapTypeLocked)) then {
-            GVAR(drawPaper) = GVAR(prefMap);
+            GVAR(drawPaper) = _this;
 
-            DRAW_STYLE_SET([ARR_2("tablet","paper")] select GVAR(drawPaper));
+            DRAW_STYLE_SET([ARR_2("tablet","paper")] select _this);
         };
     }
 ] call CBA_fnc_addSetting;
@@ -62,21 +62,7 @@
     [[1, 0, 2], ["Manual", "Automatic", "Always centered"], 1],
     0,
     {
-        GVAR(adjustMode) = GVAR(allowAdjust);
-    }
-] call CBA_fnc_addSetting;
-
-[
-    QGVAR(allowAdjustLocked),
-    "CHECKBOX",
-    ["Lock 'Keep player on map'", "Forces the setting above."],
-    [COMPONENT_NAME, "Locks"],
-    false,
-    0,
-    {
-        if (GVAR(allowAdjustLocked)) then {
-            GVAR(adjustMode) = GVAR(allowAdjust);
-        };
+        GVAR(adjustMode) = _this;
     }
 ] call CBA_fnc_addSetting;
 
@@ -97,7 +83,7 @@
     false,
     0,
     {
-        if (GVAR(mapTypeLocked)) then {
+        if (_this) then {
             GVAR(drawPaper) = true;
             DRAW_STYLE_SET("paper");
         };
