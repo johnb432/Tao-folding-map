@@ -1,3 +1,8 @@
+# Changelog for Tao's Folding Map Rewrite 30.4.2022
+
+4.2.3.2
+- Added setting "Items that provide GPS", which adds support for inventory items to provide GPS capabilities.
+
 # Changelog for Tao's Folding Map Rewrite 19.3.2022
 
 4.2.3.1
