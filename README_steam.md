@@ -2,7 +2,8 @@
 
 [h2]CBA Settings[/h2]
 
-When "GPS device" is used, it means you need to have access to a GPS panel, which can come from a Vanilla GPS, UAV Terminals, Firewill's PDU, BWA's Navipad and more, but also from vehicles.
+When the term "GPS device" is used, it means you need to have access to a GPS panel, which can come from a Vanilla GPS, UAV Terminals, Firewill's PDU, BWA's Navipad and more, but also from vehicles.
+The items in "Items that provide GPS" are also considered GPS devices.
 
 [list]
 [*] [b]Map:[/b] Allows the addons to be effectively toggled off if necessary.
@@ -19,6 +20,7 @@ When set to "Yes" a GPS device will be required in order to have automatic posit
 [*] [b]Require GPS for tablet:[/b] If enabled, it will require a GPS device to be able to open the tablet.
 [*] [b]Require GPS for displaying icon:[/b] If enabled, it will require a GPS device to be able to display the arrow indicating where you are.
 [*] [b]Require GPS for displaying gridref:[/b] If enabled, it will require a GPS device to be able to display your grid reference on the tablet.
+[*] [b]Items that provide GPS:[/b] You can add additional items that provide GPS capabilities. This setting is an array of strings.
 [*] [b]Icon on map:[/b] Specifically for the tablet. It will draw your location on the map if you have a GPS device.
 [*] [b]Tablet gridref:[/b] Specifically for the tablet. It will display your grid coordinates if you have a GPS device.
 [*] [b]Preferred tablet mode:[/b] Sets which tablet mode should be selected when you first load into a mission.

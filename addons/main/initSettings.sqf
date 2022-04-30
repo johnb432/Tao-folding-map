@@ -134,6 +134,18 @@
     true
 ] call CBA_fnc_addSetting;
 
+[
+    QGVAR(itemsGPSSetting),
+    "EDITBOX",
+    ["Items that provide GPS", "You can add additional items that provide GPS capabilities."],
+    [COMPONENT_NAME, "Tablet"],
+    "['ACE_DAGR','ACE_microDAGR']",
+    0,
+    {
+        GVAR(itemsGPS) = (parseSimpleArray _this) apply {configName (_x call CBA_fnc_getItemConfig)};
+    }
+] call CBA_fnc_addSetting;
+
 
 
 [

@@ -19,4 +19,4 @@
 private _panels = flatten (_this infoPanelComponents "left");
 private _index = _panels find "MinimapDisplayComponent";
 
-_index isNotEqualTo -1 && {_panels select (_index + 1)};
+(_index isNotEqualTo -1 && {_panels select (_index + 1)}) || {(GVAR(itemsGPS) arrayIntersect (items _this)) isNotEqualTo []};
