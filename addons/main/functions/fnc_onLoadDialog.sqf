@@ -17,7 +17,7 @@
  */
 
 // Set main control
-SETUVAR(GVAR(foldMap),_this);
+SETUVAR(QGVAR(foldMap),_this);
 
 // Set active map
 GVAR(mapCtrlActive) = [IDC_DAYMAP, IDC_NIGHTMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
@@ -45,14 +45,16 @@ if (GVAR(drawPaper)) then {
     _controlStatusbarLeft ctrlShow false;
 };
 
-// On first run, get the center pos. This is used for all paging thereafter
+private _posATL = getPosATL _player;
+
+// On first run, get the center pos; This is used for all paging thereafter
 if (isNil QGVAR(centerPos)) then {
-    GVAR(centerPos) = [[worldSize / 2, worldSize / 2, 0], getPosATL _player] select (GVAR(adjustMode) isNotEqualTo 1 && (GVAR(hasGPS) || {!GVAR(GPSAdjust)}));
+    GVAR(centerPos) = [[worldSize / 2, worldSize / 2, 0], _posATL] select (GVAR(adjustMode) != 1 && (GVAR(hasGPS) || {!GVAR(GPSAdjust)}));
 };
 
 // Off-map check for non-manual modes: If the player passed off the map while it was closed, recenter it; Fudge factor here to avoid opening on the edge of the map, which isn't very helpful
-if (GVAR(adjustMode) isNotEqualTo 1 && {GVAR(hasGPS) || !GVAR(GPSAdjust)} && {abs ((GVAR(centerPos) select 0) - (getPosATL _player select 0)) + 150 > GVAR(pageWidth) || abs ((GVAR(centerPos) select 1) - (getPosATL _player select 1)) + 150 > GVAR(pageHeight)}) then {
-    GVAR(centerPos) = getPosATL _player;
+if (GVAR(adjustMode) != MANUAL && {GVAR(hasGPS) || !GVAR(GPSAdjust)} && {abs ((GVAR(centerPos) select 0) - (_posATL select 0)) + 150 > GVAR(pageWidth) || abs ((GVAR(centerPos) select 1) - (_posATL select 1)) + 150 > GVAR(pageHeight)}) then {
+    GVAR(centerPos) = _posATL;
 };
 
 // Center map on current centering position
@@ -118,7 +120,7 @@ if (GVAR(drawPaper)) then {
         private _brightness = _ambientLightBrightness + _dynamicLightBrightness;
         private _lighting = if (_brightness > 3000) then {
             GVAR(lighting) = [1, 1, 1, 1];
-            [1, 1, 1, 0];
+            [1, 1, 1, 0]
         } else {
             private _alpha = switch (true) do {
                 case (_brightness <= 0.2):  {1};
@@ -150,7 +152,7 @@ if (GVAR(drawPaper)) then {
 
             _finalLightColorMap pushBack _alpha;
 
-            _finalLightColorMap;
+            _finalLightColorMap
         };
 
         _mapControl drawRectangle [_mapControl ctrlMapScreenToWorld [MAP_XPOS, MAP_YPOS], GVAR(pageWidth) * 3, GVAR(pageHeight) * 3, 0, _lighting, "#(rgb,1,1,1)color(0,0,0,1)"];
@@ -159,14 +161,14 @@ if (GVAR(drawPaper)) then {
     (_this displayCtrl IDC_DAYMAP) ctrlAddEventHandler ["Draw", {
         if (GVAR(mapIcon) && {GVAR(hasGPS) || !GVAR(requireGPSmapIcon)}) then {
             private _player = call CBA_fnc_currentUnit;
-            (_this select 0) drawIcon [getText(configFile >> "CfgMarkers" >> "mil_arrow2" >> "icon"), [0.06, 0.08, 0.06, 0.87], getPosATL _player, 19, 25, direction vehicle _player, "", false];
+            (_this select 0) drawIcon [getText (configFile >> "CfgMarkers" >> "mil_arrow2" >> "icon"), [0.06, 0.08, 0.06, 0.87], getPosATL _player, 19, 25, direction vehicle _player, "", false];
         };
     }];
 
     (_this displayCtrl IDC_NIGHTMAP) ctrlAddEventHandler ["Draw", {
         if (GVAR(mapIcon) && {GVAR(hasGPS) || !GVAR(requireGPSmapIcon)}) then {
             private _player = call CBA_fnc_currentUnit;
-            (_this select 0) drawIcon [getText(configFile >> "CfgMarkers" >> "mil_arrow2" >> "icon"), [0.9, 0.9, 0.9, 0.8], getPosATL _player, 19, 25, direction vehicle _player, "", false];
+            (_this select 0) drawIcon [getText (configFile >> "CfgMarkers" >> "mil_arrow2" >> "icon"), [0.9, 0.9, 0.9, 0.8], getPosATL _player, 19, 25, direction vehicle _player, "", false];
         };
     }];
 };

@@ -68,17 +68,17 @@ GVAR(doShow) = true;
     };
 
     // Open the variations
-    if (GVAR(adjustMode) isEqualTo 0 && {GVAR(hasGPS) || !GVAR(GPSAdjust)}) exitWith {
+    if (GVAR(adjustMode) == AUTOMATIC && {GVAR(hasGPS) || !GVAR(GPSAdjust)}) exitWith {
         [_player, _controlActiveMap] call FUNC(PFHautomatic);
     };
 
-    if (GVAR(adjustMode) isEqualTo 2 && {GVAR(hasGPS) || !GVAR(GPSAdjust)}) exitWith {
+    if (GVAR(adjustMode) == CENTERED && {GVAR(hasGPS) || !GVAR(GPSAdjust)}) exitWith {
         GVAR(centerPos) = getPosATL _player;
         _controlActiveMap ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
         ctrlMapAnimCommit _controlActiveMap;
     };
 
-    if (GVAR(adjustMode) isEqualTo 1) exitWith {
+    if (GVAR(adjustMode) == MANUAL) exitWith {
         _controlActiveMap call FUNC(PFHmanual);
     };
 }, GVAR(refreshRate)] call CBA_fnc_addPerFrameHandler;

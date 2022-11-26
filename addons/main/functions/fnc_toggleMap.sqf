@@ -16,6 +16,9 @@
  * Public: No
  */
 
+// Don't turn on map if CBA settings not initialised
+if (!GVAR(CBASettingsInitialized)) exitWith {};
+
 if (!GVAR(isOpen)) then {
     private _player = call CBA_fnc_currentUnit;
     GVAR(hasGPS) = _player call FUNC(findGPS);

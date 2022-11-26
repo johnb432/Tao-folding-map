@@ -35,7 +35,7 @@
             "Toggles the map type.",
             [],
             DIK_T,
-            GVAR(enableMap) && {!GVAR(mapTypeLocked)} && {!GVAR(requireMapForPaperMap) || shownMap || GVAR(drawPaper)} && {!GVAR(requireGPSForTablet) || GVAR(hasGPS) || !GVAR(drawPaper)},
+            GVAR(enableMap) && {GVAR(CBASettingsInitialized)} && {!GVAR(mapTypeLocked)} && {!GVAR(requireMapForPaperMap) || shownMap || GVAR(drawPaper)} && {!GVAR(requireGPSForTablet) || GVAR(hasGPS) || !GVAR(drawPaper)},
             true
         ],
 
@@ -60,14 +60,14 @@
             "Switch to Manual Tracking",
             {
                 if (GVAR(isOpen)) then {
-                    GVAR(adjustMode) = 1;
+                    GVAR(adjustMode) = MANUAL;
                 };
             },
             "",
             "Switches the map to manual tracking mode.",
             [],
             DIK_M,
-            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 1} && {!GVAR(allowAdjustLocked)},
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != MANUAL} && {!GVAR(allowAdjustLocked)},
             true
         ],
 
@@ -76,14 +76,14 @@
             "Switch to Automatic Tracking",
             {
                 if (GVAR(isOpen)) then {
-                    GVAR(adjustMode) = 0;
+                    GVAR(adjustMode) = AUTOMATIC;
                 };
             },
             "",
             "Switches the map to automatic tracking mode.",
             [],
             DIK_A,
-            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 0} && {!GVAR(allowAdjustLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != AUTOMATIC} && {!GVAR(allowAdjustLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
             true
         ],
 
@@ -92,14 +92,14 @@
             "Switch to Centered Tracking",
             {
                 if (GVAR(isOpen)) then {
-                    GVAR(adjustMode) = 2;
+                    GVAR(adjustMode) = CENTERED;
                 };
             },
             "",
             "Switches the map to centered tracking mode.",
             [],
             DIK_C,
-            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) isNotEqualTo 2} && {!GVAR(allowAdjustLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != CENTERED} && {!GVAR(allowAdjustLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
             true
         ]
     ]
