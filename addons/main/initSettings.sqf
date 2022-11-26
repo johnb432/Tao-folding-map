@@ -4,7 +4,7 @@
     ["Map", "Enables the addon. Makes it easy to disable instead of unloading the mod."],
     [COMPONENT_NAME, "General"],
     true,
-    false,
+    0,
     {
         if (GVAR(isOpen)) then {
             GVAR(doShow) = false;
@@ -139,10 +139,10 @@
     "EDITBOX",
     ["Items that provide GPS", "You can add additional items that provide GPS capabilities."],
     [COMPONENT_NAME, "Tablet"],
-    "['ACE_DAGR','ACE_microDAGR']",
+    '["ACE_DAGR","ACE_microDAGR"]',
     0,
     {
-        GVAR(itemsGPS) = (parseSimpleArray _this) apply {configName (_x call CBA_fnc_getItemConfig)};
+        GVAR(itemsGPS) = ((parseSimpleArray _this) apply {configName (_x call CBA_fnc_getItemConfig)}) - [""];
     }
 ] call CBA_fnc_addSetting;
 
@@ -169,6 +169,5 @@
     "LIST",
     ["Preferred tablet mode", "Sets the preferred tablet mode."],
     [COMPONENT_NAME, "Tablet Preferences"],
-    [[true, false], ["Night", "Day"], 1],
-    false
+    [[true, false], ["Night", "Day"], 1]
 ] call CBA_fnc_addSetting;

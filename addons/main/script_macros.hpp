@@ -1,21 +1,13 @@
 #include "\x\cba\addons\main\script_macros_common.hpp"
 
-//This part includes parts of the CBA and ACE3 macro libraries
-#define GETUVAR(var1,var2) (uiNamespace getVariable [ARR_2(QUOTE(var1),var2)])
-#define GETPRVAR(var1,var2) (profileNamespace getVariable [ARR_2(QUOTE(var1),var2)])
+// This part includes parts of the CBA and ACE3 macro libraries
+#define GETPRVAR(var1,var2) (profileNamespace getVariable [ARR_2(var1,var2)])
+#define GETUVAR(var1,var2) (uiNamespace getVariable [ARR_2(var1,var2)])
+#define GETMVAR(var1,var2) (missionNamespace getVariable [ARR_2(var1,var2)])
 
-#define SETUVAR(var1,var2) (uiNamespace setVariable [ARR_2(QUOTE(var1),var2)])
-#define SETPRVAR(var1,var2) (profileNamespace setVariable [ARR_2(QUOTE(var1),var2)])
-
-#define DFUNC(var1) TRIPLES(ADDON,fnc,var1)
-
-#ifdef DISABLE_COMPILE_CACHE
-    #undef PREP
-    #define PREP(fncName) DFUNC(fncName) = compile preprocessFileLineNumbers QPATHTOF(functions\DOUBLES(fnc,fncName).sqf)
-#else
-    #undef PREP
-    #define PREP(fncName) [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call CBA_fnc_compileFunction
-#endif
+#define SETPRVAR(var1,var2) (profileNamespace setVariable [ARR_2(var1,var2)])
+#define SETUVAR(var1,var2) (uiNamespace setVariable [ARR_2(var1,var2)])
+#define SETMVAR(var1,var2,var3) (missionNamespace setVariable [ARR_3(var1,var2,var3)])
 
 #define POS_CALC ((safezoneW / safezoneH) min 1.2)
 #define X_OFF (safezoneX + (safezoneW - POS_CALC) / 2)
@@ -42,20 +34,20 @@
 #define SCALE (MAP_HEIGHT / DEFAULT_HEIGHT)
 
 // Relative positioning defines; Getters
-#define MAP_XPOS (GETPRVAR(igui_grid_tao_folding_map_rewrite_x,POS_X(5)))
-#define MAP_YPOS (GETPRVAR(igui_grid_tao_folding_map_rewrite_y,POS_Y(5)))
-#define MAP_WIDTH (GETPRVAR(igui_grid_tao_folding_map_rewrite_w,POS_W(20)))
-#define MAP_HEIGHT (GETPRVAR(igui_grid_tao_folding_map_rewrite_h,POS_H(20)))
-#define DRAW_STYLE (GETPRVAR(GVAR(drawStyle),"paper"))
+#define MAP_XPOS (GETPRVAR("igui_grid_tao_folding_map_rewrite_x",POS_X(5)))
+#define MAP_YPOS (GETPRVAR("igui_grid_tao_folding_map_rewrite_y",POS_Y(5)))
+#define MAP_WIDTH (GETPRVAR("igui_grid_tao_folding_map_rewrite_w",POS_W(20)))
+#define MAP_HEIGHT (GETPRVAR("igui_grid_tao_folding_map_rewrite_h",POS_H(20)))
+#define DRAW_STYLE (GETPRVAR(QGVAR(drawStyle),"paper"))
 
 // Setters
-#define MAP_XPOS_SET(var) (SETPRVAR(igui_grid_tao_folding_map_rewrite_x,var))
-#define MAP_YPOS_SET(var) (SETPRVAR(igui_grid_tao_folding_map_rewrite_y,var))
-#define MAP_WIDTH_SET(var) (SETPRVAR(igui_grid_tao_folding_map_rewrite_w,var))
-#define MAP_HEIGHT_SET(var) (SETPRVAR(igui_grid_tao_folding_map_rewrite_h,var))
-#define DRAW_STYLE_SET(var) (SETPRVAR(GVAR(drawStyle),var))
+#define MAP_XPOS_SET(var) (SETPRVAR("igui_grid_tao_folding_map_rewrite_x",var))
+#define MAP_YPOS_SET(var) (SETPRVAR("igui_grid_tao_folding_map_rewrite_y",var))
+#define MAP_WIDTH_SET(var) (SETPRVAR("igui_grid_tao_folding_map_rewrite_w",var))
+#define MAP_HEIGHT_SET(var) (SETPRVAR("igui_grid_tao_folding_map_rewrite_h",var))
+#define DRAW_STYLE_SET(var) (SETPRVAR(QGVAR(drawStyle),var))
 
-#define FOLDMAP (GETUVAR(GVAR(foldMap),displayNull))
+#define FOLDMAP (GETUVAR(QGVAR(foldMap),displayNull))
 
 // Display & control ID defines.
 #define IDD_INTERRUPT 49
@@ -67,3 +59,17 @@
 #define IDC_STATUSBAR 30
 #define IDC_STATUSRIGHT 31
 #define IDC_STATUSLEFT 32
+
+#define AUTOMATIC 0
+#define MANUAL 1
+#define CENTERED 2
+
+#define DFUNC(var1) TRIPLES(ADDON,fnc,var1)
+
+#ifdef DISABLE_COMPILE_CACHE
+    #undef PREP
+    #define PREP(fncName) DFUNC(fncName) = compile preprocessFileLineNumbers QPATHTOF(functions\DOUBLES(fnc,fncName).sqf)
+#else
+    #undef PREP
+    #define PREP(fncName) [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call CBA_fnc_compileFunction
+#endif

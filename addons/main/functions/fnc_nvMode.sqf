@@ -37,8 +37,8 @@ _controlActiveMap ctrlShow true;
 // Hide the old map
 _controlInactiveMap ctrlShow false;
 
-//'Refolds' the map to recenter it
-if (GVAR(adjustMode) isEqualTo 0 && {GVAR(hasGPS) || {!GVAR(GPSAdjust)}}) then {
+// 'Refolds' the map to recenter it
+if (GVAR(adjustMode) == AUTOMATIC && {GVAR(hasGPS) || {!GVAR(GPSAdjust)}}) then {
     GVAR(centerPos) = getPosATL (call CBA_fnc_currentUnit);
     _controlActiveMap ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
     ctrlMapAnimCommit _controlActiveMap;
