@@ -27,6 +27,14 @@ if (!GVAR(isOpen)) then {
     if (!GVAR(enableMap) || {GVAR(closeMap) && {visibleMap}} || {GVAR(requireMapForPaperMap) && {GVAR(drawPaper)} && {!shownMap}} || {GVAR(requireGPSForTablet) && {!GVAR(drawPaper)} && {!GVAR(hasGPS)}} || {!(cameraView in GVAR(closeView))} || {!alive _player}) exitWith {};
 
     call FUNC(openFoldmap);
+
+    if (!isNil "CLib_fnc_registerMapControl") then {
+        (FOLDMAP displayCtrl GVAR(mapCtrlActive)) call CLib_fnc_registerMapControl;
+    };
+
+    if (!isNil "fkf_groupMarkers_fnc_addMarker") then {
+        "fkf_groupMarkers_rebuildMarkers" call CLib_fnc_localEvent;
+    };
 } else {
     GVAR(doShow) = false;
 };
