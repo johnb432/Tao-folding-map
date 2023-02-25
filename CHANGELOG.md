@@ -1,3 +1,9 @@
+# Changelog for Tao's Folding Map Rewrite 25.2.2023
+
+4.2.3.4
+- Added support for map icons drawn by CLib.
+- Switched date and time, so that is bounces around less.
+
 # Changelog for Tao's Folding Map Rewrite 26.11.2022
 
 4.2.3.3

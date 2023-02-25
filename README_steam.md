@@ -49,3 +49,6 @@ When set to "Yes" a GPS device will be required in order to have automatic posit
 [*] Dystopian for the updated darkening script, from [url=https://github.com/acemod/ACE3/blob/master/addons/map/functions/fnc_determineMapLight.sqf]ACE3[/url]
 [*] Mod overhaul by johnb43
 [/list]
+
+[h2]License[/h2]
+See LICENSE.
