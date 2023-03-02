@@ -63,13 +63,20 @@
     0,
     {
         GVAR(adjustMode) = _this;
+
+        // Detect whether setting was globally enforced; If globally enforced (server = 1 or mission = 2), tracking type is locked; 0 is client
+        GVAR(allowAdjustSettingIsLocked) = (((switch (QGVAR(allowAdjust) call CBA_settings_fnc_priority) do {
+            case "client": {CBA_settings_client};
+            case "mission": {CBA_settings_mission};
+            case "server": {CBA_settings_server};
+        }) getVariable QGVAR(allowAdjust)) param [1, 0]) > 0;
     }
 ] call CBA_fnc_addSetting;
 
 [
     QGVAR(GPSAdjust),
     "CHECKBOX",
-    ["Require GPS panel to adjust automatically", "If set to true, you will need a GPS panel to be able to use the automatic adjusting modes."],
+    ["Require GPS device to adjust automatically", "If set to true, you will need a GPS device to be able to use the automatic adjusting modes."],
     [COMPONENT_NAME, "Locks"],
     true,
     1
@@ -113,7 +120,7 @@
 [
     QGVAR(requireGPSForTablet),
     "CHECKBOX",
-    ["Require GPS panel for tablet", "If set, you will require a GPS panel to show the tablet."],
+    ["Require GPS device for tablet", "If set, you will require a GPS device to show the tablet."],
     [COMPONENT_NAME, "Tablet"],
     true
 ] call CBA_fnc_addSetting;
@@ -121,7 +128,7 @@
 [
     QGVAR(requireGPSmapIcon),
     "CHECKBOX",
-    ["Require GPS panel for displaying icon", "If set, you will require a GPS panel to show your location on the tablet."],
+    ["Require GPS device for displaying icon", "If set, you will require a GPS device to show your location on the tablet."],
     [COMPONENT_NAME, "Tablet"],
     true
 ] call CBA_fnc_addSetting;
@@ -129,7 +136,7 @@
 [
     QGVAR(requireGPSForGridRef),
     "CHECKBOX",
-    ["Require GPS panel for displaying gridref", "If set, you will require a GPS panel to show your grid reference on the tablet."],
+    ["Require GPS device for displaying gridref", "If set, you will require a GPS device to show your grid reference on the tablet."],
     [COMPONENT_NAME, "Tablet"],
     true
 ] call CBA_fnc_addSetting;
@@ -159,7 +166,7 @@
 [
     QGVAR(gridRef),
     "CHECKBOX",
-    ["Tablet gridref", "Enables a grid reference on the tablet if the person has a vanilla GPS/NAV panel."],
+    ["Tablet gridref", "Enables a grid reference on the tablet if the person has a vanilla GPS/NAV device."],
     [COMPONENT_NAME, "Tablet Preferences"],
     true
 ] call CBA_fnc_addSetting;

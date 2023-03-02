@@ -28,10 +28,12 @@ if (!GVAR(isOpen)) then {
 
     call FUNC(openFoldmap);
 
+    // If CLib is present, register this as a map
     if (!isNil "CLib_fnc_registerMapControl") then {
         (FOLDMAP displayCtrl GVAR(mapCtrlActive)) call CLib_fnc_registerMapControl;
     };
 
+    // If FKFramework is present, tell it to rebuild all markers
     if (!isNil "fkf_groupMarkers_fnc_addMarker") then {
         "fkf_groupMarkers_rebuildMarkers" call CLib_fnc_localEvent;
     };
