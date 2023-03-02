@@ -1,7 +1,7 @@
 [COMPONENT_NAME, QGVAR(toggleMap), ["Toggle folding map", "Toggles the minimap display."], {
      call FUNC(toggleMap);
 
-     true;
+     true
 }, {}, [DIK_M, [false, false, true]]] call CBA_fnc_addKeybind;
 
 [COMPONENT_NAME, QGVAR(refoldMap), "Refold map", {

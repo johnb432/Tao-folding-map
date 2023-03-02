@@ -114,8 +114,14 @@ if (GVAR(drawPaper)) then {
     (_this displayCtrl IDC_DAYMAP) ctrlAddEventHandler ["Draw", {
         params ["_mapControl"];
 
+        private _player = call CBA_fnc_currentUnit;
+
+        if (isNil QGVAR(pageWidth) || {isNil QGVAR(pageHeight)} || {!alive _player}) exitWith {
+            _mapControl ctrlRemoveEventHandler [_thisEvent, _thisEventHandler];
+        };
+
         // Script by Dystopian for the ACE3 mod https://github.com/acemod/ACE3/blob/master/addons/map/functions/fnc_determineMapLight.sqf
-        (getLightingAt (call CBA_fnc_currentUnit)) params ["_ambientLightColor", "_ambientLightBrightness", "_dynamicLightColor", "_dynamicLightBrightness"];
+        (getLightingAt _player) params ["_ambientLightColor", "_ambientLightBrightness", "_dynamicLightColor", "_dynamicLightBrightness"];
 
         private _brightness = _ambientLightBrightness + _dynamicLightBrightness;
         private _lighting = if (_brightness > 3000) then {

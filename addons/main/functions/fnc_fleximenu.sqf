@@ -67,7 +67,7 @@
             "Switches the map to manual tracking mode.",
             [],
             DIK_M,
-            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != MANUAL} && {!GVAR(allowAdjustLocked)},
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != MANUAL} && {!GVAR(allowAdjustSettingIsLocked)},
             true
         ],
 
@@ -83,7 +83,7 @@
             "Switches the map to automatic tracking mode.",
             [],
             DIK_A,
-            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != AUTOMATIC} && {!GVAR(allowAdjustLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != AUTOMATIC} && {!GVAR(allowAdjustSettingIsLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
             true
         ],
 
@@ -99,7 +99,7 @@
             "Switches the map to centered tracking mode.",
             [],
             DIK_C,
-            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != CENTERED} && {!GVAR(allowAdjustLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
+            GVAR(enableMap) && {GVAR(isOpen)} && {GVAR(adjustMode) != CENTERED} && {!GVAR(allowAdjustSettingIsLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
             true
         ]
     ]

@@ -50,22 +50,20 @@ GVAR(doShow) = true;
         private _date = date;
         (_foldMap displayCtrl IDC_STATUSRIGHT) ctrlSetText (format ["%1  %2/%3/%4  ||||||", dayTime call BIS_fnc_timeToString, _date select 0, _date select 1, _date select 2]);
 
-        // If setting "enable gridref" is enabled and a GPS panel is available, draw the grid reference on the status bar of the tablet.
+        // If setting "enable gridref" is enabled and a GPS panel is available, draw the grid reference on the status bar of the tablet
         (_foldMap displayCtrl IDC_STATUSLEFT) ctrlSetText (["", format ["GRID %1", mapGridPosition _player]] select (GVAR(gridRef) && {GVAR(hasGPS) || (!GVAR(requireGPSForGridRef) && {!GVAR(GPSAdjust)})}));
     };
 
     private _controlActiveMap = _foldMap displayCtrl GVAR(mapCtrlActive);
 
-    // Update the delta number for map paging updates if needed.
-    if (GVAR(needsScaleReset) || {isNil QGVAR(pageWidth)}) then {
-        private _ctrlPos = ctrlPosition _controlActiveMap;
-        private _upperLeftCornerPos = _controlActiveMap ctrlMapScreenToWorld [MAP_XPOS, MAP_YPOS];
-        private _bottomRightCornerPos = _controlActiveMap ctrlMapScreenToWorld [MAP_XPOS + (_ctrlPos select 2), MAP_YPOS + (_ctrlPos select 3)];
+    // Update the delta number for map paging updates if needed
+    private _ctrlPos = ctrlPosition _controlActiveMap;
+    private _upperLeftCornerPos = _controlActiveMap ctrlMapScreenToWorld [MAP_XPOS, MAP_YPOS];
+    private _bottomRightCornerPos = _controlActiveMap ctrlMapScreenToWorld [MAP_XPOS + (_ctrlPos select 2), MAP_YPOS + (_ctrlPos select 3)];
 
-        // Compute page width and height (in meters on the map) for paging.
-        GVAR(pageWidth) = abs ((_upperLeftCornerPos select 0) - (_bottomRightCornerPos select 0));
-        GVAR(pageHeight) = abs ((_upperLeftCornerPos select 1) - (_bottomRightCornerPos select 1));
-    };
+    // Compute page width and height (in meters on the map) for paging
+    GVAR(pageWidth) = abs ((_upperLeftCornerPos select 0) - (_bottomRightCornerPos select 0));
+    GVAR(pageHeight) = abs ((_upperLeftCornerPos select 1) - (_bottomRightCornerPos select 1));
 
     // Open the variations
     if (GVAR(adjustMode) == AUTOMATIC && {GVAR(hasGPS) || !GVAR(GPSAdjust)}) exitWith {

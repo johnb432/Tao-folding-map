@@ -26,7 +26,7 @@ private _foldmap = FOLDMAP;
 private _controlActiveMap = _foldmap displayCtrl GVAR(mapCtrlActive);
 private _controlInactiveMap = _foldmap displayCtrl GVAR(mapCtrlInactive);
 
-// Give new map the scale/centering properties of the old map.
+// Give new map the scale/centering properties of the old map
 _controlActiveMap ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
 ctrlMapAnimCommit _controlActiveMap;
 
