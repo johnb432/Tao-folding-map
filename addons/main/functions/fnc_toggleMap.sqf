@@ -17,7 +17,9 @@
  */
 
 // Don't turn on map if CBA settings not initialised
-if (!GVAR(CBASettingsInitialized)) exitWith {};
+if !(GETMVAR("CBA_settings_ready",false)) exitWith {
+    WARNING("CBA settings not initialised yet!");
+};
 
 if (!GVAR(isOpen)) then {
     private _player = call CBA_fnc_currentUnit;
@@ -28,15 +30,20 @@ if (!GVAR(isOpen)) then {
 
     call FUNC(openFoldmap);
 
-    // If CLib is present, register this as a map
-    if (!isNil "CLib_fnc_registerMapControl") then {
-        (FOLDMAP displayCtrl GVAR(mapCtrlActive)) call CLib_fnc_registerMapControl;
-    };
+    // Best wait 2 frames
+    {
+        {
+            // If CLib is present, register this as a map
+            if (!isNil "CLib_fnc_registerMapControl") then {
+                (FOLDMAP displayCtrl GVAR(mapCtrlActive)) call CLib_fnc_registerMapControl;
+            };
 
-    // If FKFramework is present, tell it to rebuild all markers
-    if (!isNil "fkf_groupMarkers_fnc_addMarker") then {
-        "fkf_groupMarkers_rebuildMarkers" call CLib_fnc_localEvent;
-    };
+            // If FKFramework is present, tell it to rebuild all markers
+            if (!isNil "fkf_groupMarkers_fnc_addMarker") then {
+                "fkf_groupMarkers_rebuildMarkers" call CLib_fnc_localEvent;
+            };
+        } call CBA_fnc_execNextFrame;
+    } call CBA_fnc_execNextFrame;
 } else {
     GVAR(doShow) = false;
 };

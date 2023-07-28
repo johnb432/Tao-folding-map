@@ -3,18 +3,18 @@
 
 // #define DEBUG_MODE_FULL
 // #define DISABLE_COMPILE_CACHE
-// #define CBA_DEBUG_SYNCHRONOUS
+#define DEBUG_SYNCHRONOUS
 // #define ENABLE_PERFORMANCE_COUNTERS
 
-#ifdef DEBUG_ENABLED_TAOMAP
+#ifdef DEBUG_ENABLED_TAO_REWRITE
     #define DEBUG_MODE_FULL
 #endif
 
-#ifdef DEBUG_SETTINGS_TAOMAP
-    #define DEBUG_SETTINGS DEBUG_SETTINGS_TAOMAP
+#ifdef DEBUG_SETTINGS_TAO_REWRITE
+    #define DEBUG_SETTINGS DEBUG_SETTINGS_TAO_REWRITE
 #endif
 
 #include "script_macros.hpp"
 
-// Include BI DIK codes.
+// Include BI DIK codes
 #include "\a3\ui_f\hpp\defineDIKCodes.inc"

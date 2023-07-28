@@ -17,7 +17,7 @@
  */
 
 // Initialize the dialog; This calls FUNC(onLoadDialog)
-GVAR(mapRscLayer) cutRsc [QGVAR(foldMap), "PLAIN"];
+QGVAR(mapRscLayer) cutRsc [QGVAR(foldMap), "PLAIN"];
 
 // Monitor and update map until closed
 GVAR(isOpen) = true;
@@ -32,7 +32,7 @@ GVAR(doShow) = true;
         (_this select 1) call CBA_fnc_removePerFrameHandler;
 
         // Destroy the rsc
-        GVAR(mapRscLayer) cutText ["", "PLAIN"];
+        QGVAR(mapRscLayer) cutText ["", "PLAIN"];
 
         // Map is gone and can be opened again
         GVAR(isOpen) = false;

@@ -20,10 +20,11 @@ class CfgUIGrids {
         class Variables {
             class grid_tao_folding_map_rewrite {
                 canResize = 1;
-                description = "When resizing, it will take only the height into account, as a fixed ratio is required between height and width.";
+                description = "Sets the size of the map (not the whole tablet).";
                 displayName = COMPONENT_NAME;
                 preview = QPATHTOF(ui\paper.paa);
                 saveToProfile[] = {0, 1, 2, 3};
+                keepAspectRatio = 1;
             };
         };
     };

@@ -1,4 +1,3 @@
-
 ## Added by HEMTT
 releases/*
 *.biprivatekey
@@ -9,3 +8,4 @@ keys/*
 hemtt.exe
 .hemtt/template/
 *.pbo
+.hemttout
