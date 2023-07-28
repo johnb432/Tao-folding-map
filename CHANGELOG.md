@@ -1,3 +1,10 @@
+# Changelog for Tao's Folding Map Rewrite 28.7.2023
+
+4.2.3.6
+- Hopefully fixed weird CBA fleximenu issues.
+- Map can only be opened after CBA settings are initialised.
+- Minor improvements.
+
 # Changelog for Tao's Folding Map Rewrite 2.3.2023
 
 4.2.3.5

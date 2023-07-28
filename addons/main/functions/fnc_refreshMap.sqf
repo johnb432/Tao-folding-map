@@ -16,7 +16,6 @@
  * Public: No
  */
 
-
 call FUNC(toggleMap);
 
 // Best wait 2 frames

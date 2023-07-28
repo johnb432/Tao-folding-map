@@ -34,18 +34,16 @@
 #define SCALE (MAP_HEIGHT / DEFAULT_HEIGHT)
 
 // Relative positioning defines; Getters
-#define MAP_XPOS (GETPRVAR("igui_grid_tao_folding_map_rewrite_x",POS_X(5)))
-#define MAP_YPOS (GETPRVAR("igui_grid_tao_folding_map_rewrite_y",POS_Y(5)))
-#define MAP_WIDTH (GETPRVAR("igui_grid_tao_folding_map_rewrite_w",POS_W(20)))
-#define MAP_HEIGHT (GETPRVAR("igui_grid_tao_folding_map_rewrite_h",POS_H(20)))
-#define DRAW_STYLE (GETPRVAR(QGVAR(drawStyle),"paper"))
+#define MAP_XPOS (GETPRVAR('igui_grid_tao_folding_map_rewrite_x',POS_X(5)))
+#define MAP_YPOS (GETPRVAR('igui_grid_tao_folding_map_rewrite_y',POS_Y(5)))
+#define MAP_WIDTH (GETPRVAR('igui_grid_tao_folding_map_rewrite_w',POS_W(20)))
+#define MAP_HEIGHT (GETPRVAR('igui_grid_tao_folding_map_rewrite_h',POS_H(20)))
 
 // Setters
-#define MAP_XPOS_SET(var) (SETPRVAR("igui_grid_tao_folding_map_rewrite_x",var))
-#define MAP_YPOS_SET(var) (SETPRVAR("igui_grid_tao_folding_map_rewrite_y",var))
-#define MAP_WIDTH_SET(var) (SETPRVAR("igui_grid_tao_folding_map_rewrite_w",var))
-#define MAP_HEIGHT_SET(var) (SETPRVAR("igui_grid_tao_folding_map_rewrite_h",var))
-#define DRAW_STYLE_SET(var) (SETPRVAR(QGVAR(drawStyle),var))
+#define MAP_XPOS_SET(var) (SETPRVAR('igui_grid_tao_folding_map_rewrite_x',var))
+#define MAP_YPOS_SET(var) (SETPRVAR('igui_grid_tao_folding_map_rewrite_y',var))
+#define MAP_WIDTH_SET(var) (SETPRVAR('igui_grid_tao_folding_map_rewrite_w',var))
+#define MAP_HEIGHT_SET(var) (SETPRVAR('igui_grid_tao_folding_map_rewrite_h',var))
 
 #define FOLDMAP (GETUVAR(QGVAR(foldMap),displayNull))
 
@@ -63,6 +61,9 @@
 #define AUTOMATIC 0
 #define MANUAL 1
 #define CENTERED 2
+
+// INFO macro fails sometimes
+#define INFO_TF(message) diag_log text FORMAT_4("[%1] (%2) %3: %4",toUpper QUOTE(PREFIX),QUOTE(COMPONENT),"INFO",message)
 
 #define DFUNC(var1) TRIPLES(ADDON,fnc,var1)
 

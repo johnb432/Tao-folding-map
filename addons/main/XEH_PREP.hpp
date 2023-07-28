@@ -5,6 +5,7 @@ PREP(onLoadDialog);
 PREP(openFoldmap);
 PREP(PFHautomatic);
 PREP(PFHmanual);
+PREP(refreshAfterSettingChange);
 PREP(refreshMap);
 PREP(toggleMap);
 PREP(zoomIn);

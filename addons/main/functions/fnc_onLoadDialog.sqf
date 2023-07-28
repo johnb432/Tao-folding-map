@@ -5,7 +5,7 @@
  * onLoad function for foldmap dialog.
  *
  * Arguments:
- * 0: Display
+ * 0: Display <DISPLAY>
  *
  * Return Value:
  * None
@@ -164,6 +164,7 @@ if (GVAR(drawPaper)) then {
         _mapControl drawRectangle [_mapControl ctrlMapScreenToWorld [MAP_XPOS, MAP_YPOS], GVAR(pageWidth) * 3, GVAR(pageHeight) * 3, 0, _lighting, "#(rgb,1,1,1)color(0,0,0,1)"];
     }];
 } else {
+    // Draw map icon
     (_this displayCtrl IDC_DAYMAP) ctrlAddEventHandler ["Draw", {
         if (GVAR(mapIcon) && {GVAR(hasGPS) || !GVAR(requireGPSmapIcon)}) then {
             private _player = call CBA_fnc_currentUnit;

@@ -22,8 +22,6 @@
     {
         if (!GVAR(mapTypeLocked)) then {
             GVAR(drawPaper) = _this;
-
-            DRAW_STYLE_SET([ARR_2("tablet","paper")] select _this);
         };
     }
 ] call CBA_fnc_addSetting;
@@ -51,8 +49,6 @@
     [COMPONENT_NAME, "General"],
     [0, 10, 0, 2]
 ] call CBA_fnc_addSetting;
-
-
 
 [
     QGVAR(allowAdjust),
@@ -92,12 +88,9 @@
     {
         if (_this) then {
             GVAR(drawPaper) = true;
-            DRAW_STYLE_SET("paper");
         };
     }
 ] call CBA_fnc_addSetting;
-
-
 
 [
     QGVAR(requireMapForPaperMap),
@@ -114,8 +107,6 @@
     [COMPONENT_NAME, "Paper map"],
     true
 ] call CBA_fnc_addSetting;
-
-
 
 [
     QGVAR(requireGPSForTablet),
@@ -152,8 +143,6 @@
         GVAR(itemsGPS) = ((parseSimpleArray _this) apply {configName (_x call CBA_fnc_getItemConfig)}) - [""];
     }
 ] call CBA_fnc_addSetting;
-
-
 
 [
     QGVAR(mapIcon),
