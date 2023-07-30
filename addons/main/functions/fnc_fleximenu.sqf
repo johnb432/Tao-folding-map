@@ -39,9 +39,7 @@
             // Switch to day/night mode
             format ["Switch to %1 mode", ["night", "day"] select GVAR(isNightMap)],
             {
-                if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
-                    call FUNC(nvMode);
-                };
+                call FUNC(toggleNvMode);
             },
             "",
             "Toggles the map mode.",
@@ -53,9 +51,7 @@
             // Switch to manual tracking mode
             "Switch to Manual Tracking",
             {
-                if (GVAR(isOpen)) then {
-                    GVAR(adjustMode) = MANUAL;
-                };
+                GVAR(adjustMode) = MANUAL;
             },
             "",
             "Switches the map to manual tracking mode.",
@@ -67,9 +63,7 @@
             // Switch to automatic tracking mode
             "Switch to Automatic Tracking",
             {
-                if (GVAR(isOpen)) then {
-                    GVAR(adjustMode) = AUTOMATIC;
-                };
+                GVAR(adjustMode) = AUTOMATIC;
             },
             "",
             "Switches the map to automatic tracking mode.",
@@ -81,9 +75,7 @@
             // Switch to centered tracking mode
             "Switch to Centered Tracking",
             {
-                if (GVAR(isOpen)) then {
-                    GVAR(adjustMode) = CENTERED;
-                };
+                GVAR(adjustMode) = CENTERED;
             },
             "",
             "Switches the map to centered tracking mode.",

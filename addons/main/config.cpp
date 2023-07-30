@@ -19,5 +19,6 @@ class CfgPatches {
 };
 
 #include "CfgEventHandlers.hpp"
-#include "CfgRsc.hpp"
 #include "CfgUIGrids.hpp"
+#include "CfgVersioning.hpp"
+#include "gui.hpp"
