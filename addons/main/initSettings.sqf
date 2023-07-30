@@ -60,12 +60,14 @@
     {
         GVAR(adjustMode) = _this;
 
+        private _priority = QGVAR(allowAdjust) call CBA_settings_fnc_priority;
+
         // Detect whether setting was globally enforced; If globally enforced (server = 1 or mission = 2), tracking type is locked; 0 is client
-        GVAR(allowAdjustSettingIsLocked) = (((switch (QGVAR(allowAdjust) call CBA_settings_fnc_priority) do {
+        GVAR(allowAdjustSettingIsLocked) = (((switch (_priority) do {
             case "client": {CBA_settings_client};
             case "mission": {CBA_settings_mission};
             case "server": {CBA_settings_server};
-        }) getVariable QGVAR(allowAdjust)) param [1, 0]) > 0;
+        }) getVariable [QGVAR(allowAdjust), [0, 1]]) param [1, 0]) > 0 && {isMultiplayer || {_priority == "mission"}};
     }
 ] call CBA_fnc_addSetting;
 
@@ -81,7 +83,7 @@
 [
     QGVAR(mapTypeLocked),
     "CHECKBOX",
-    ["Lock map type", "Locks the map type to paper. Handy for pre-GPS missions."],
+    ["Lock map type to paper", "Locks the map type to paper. Handy for pre-GPS missions."],
     [COMPONENT_NAME, "Locks"],
     false,
     0,
