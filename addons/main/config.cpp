@@ -7,13 +7,17 @@ class CfgPatches {
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {
+            "A3_Data_F_AoW_Loadorder",
             "cba_main",
-            "cba_xeh",
-            "A3_Data_F_AoW_Loadorder"
+            "cba_xeh"
         };
         author = "johnb43, Taosenai";
-        authors[] = {"johnb43", "Taosenai"};
+        authors[] = {
+            "johnb43",
+            "Taosenai"
+        };
         url = "https://github.com/johnb432/Tao-folding-map";
+        skipWhenMissingDependencies = 1;
         VERSION_CONFIG;
     };
 };

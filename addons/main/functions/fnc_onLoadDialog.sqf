@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 
 /*
  * Author: johnb43
@@ -20,8 +20,8 @@
 SETUVAR(QGVAR(foldMap),_this);
 
 // Set active map
-GVAR(mapCtrlActive) = [IDC_DAYMAP, IDC_NIGHTMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
-GVAR(mapCtrlInactive) = [IDC_NIGHTMAP, IDC_DAYMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
+GVAR(mapCtrlActive) = [IDC_DAYMAP, IDC_NIGHTMAP] select (!GVAR(drawPaper) && {GVAR(nightMap)});
+GVAR(mapCtrlInactive) = [IDC_NIGHTMAP, IDC_DAYMAP] select (!GVAR(drawPaper) && {GVAR(nightMap)});
 
 private _controlGroup = _this displayCtrl IDC_GROUP;
 private _controlBackground = _this displayCtrl IDC_BACKGROUND;

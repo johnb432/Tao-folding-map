@@ -14,10 +14,10 @@ class RscTitles {
         class controls {
             class GVAR(foldMapGroup): RscControlsGroupNoScrollbars {
                 idc = IDC_GROUP;
-                x = POS_X(5);
-                y = POS_Y(5);
-                w = POS_W(20);
-                h = POS_H(20);
+                x = QUOTE(POS_X(5));
+                y = QUOTE(POS_Y(5));
+                w = QUOTE(POS_W(20));
+                h = QUOTE(POS_H(20));
                 colorBackground[] = {0, 0, 0, 0};
                 colorText[] = {1, 1, 1, 1};
                 font = "PuristaMedium";
@@ -33,8 +33,8 @@ class RscTitles {
                         style = 48;
                         x = 0;
                         y = 0;
-                        w = (POS_H(20) / RATIO_H_W);
-                        h = POS_H(20);
+                        w = QUOTE(POS_H(20) / RATIO_H_W);
+                        h = QUOTE(POS_H(20));
                         colorBackground[] = {0, 0, 0, 0};
                         colorText[] = {1, 1, 1, 1};
                         shadow = 0;
@@ -44,10 +44,10 @@ class RscTitles {
                     // Top bar with dates and gridref: base class
                     class GVAR(foldMapStatusBar): RscText {
                         idc = IDC_STATUSBAR;
-                        x = POS_X(6.45);
-                        y = POS_Y(0.72);
-                        w = POS_W(12.4);
-                        h = POS_H(0.7);
+                        x = QUOTE(POS_X(6.45));
+                        y = QUOTE(POS_Y(0.72));
+                        w = QUOTE(POS_W(12.4));
+                        h = QUOTE(POS_H(0.7));
                         colorBackground[] = {0.09, 0.1, 0.13, 1};
                         colorText[] = {1, 1, 1, 1};
                         sizeEx = 0.01;
@@ -67,7 +67,7 @@ class RscTitles {
                     // Top bar with gridref
                     class GVAR(foldMapStatusBarTextLeft): GVAR(foldMapStatusBar) {
                         idc = IDC_STATUSLEFT;
-                        w = POS_W(6.2);
+                        w = QUOTE(POS_W(6.2));
                         colorBackground[] = {1, 0, 0, 0};
                         style = 0;
                     };

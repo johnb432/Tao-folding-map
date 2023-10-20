@@ -4,7 +4,7 @@
      true
 }, {}, [DIK_M, [false, false, true]]] call CBA_fnc_addKeybind;
 
-[COMPONENT_NAME, QGVAR(refoldMap), "Refold map", {
+[COMPONENT_NAME, QGVAR(refoldMap), ["Refold map", "Recenters the map on your current location."], {
     if (GVAR(isOpen) && {GVAR(adjustMode) == AUTOMATIC} && {GVAR(hasGPS) || {!GVAR(GPSAdjust)}}) then {
         GVAR(centerPos) = getPosATL (call CBA_fnc_currentUnit);
 
@@ -32,6 +32,8 @@
 }, {}, [DIK_NUMPADMINUS, [false, false, true]]] call CBA_fnc_addKeybind;
 
 [COMPONENT_NAME, QGVAR(nightModeMap), ["Night Mode (tablet only)", "If in tablet mode, you can switch to night mode and back with this keybind."], {
+    GVAR(nightMap) = !GVAR(nightMap);
+
     if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
         call FUNC(toggleNvMode);
     };
@@ -72,5 +74,5 @@
 }, {}, [DIK_RIGHTARROW, [false, false, true]]] call CBA_fnc_addKeybind;
 
 [COMPONENT_NAME, QGVAR(configureMap), ["Configure Map", "Allows you to change various aspects of the minimap display."],
-    ["player", [], -100, QUOTE(call FUNC(fleximenu))],
+    ["player", [], -100, QUOTE(GVAR(hasGPS) = (call CBA_fnc_currentUnit) call FUNC(findGPS); call FUNC(fleximenu))],
 [DIK_M, [false, true, true]]] call CBA_fnc_addKeybindToFleximenu;
