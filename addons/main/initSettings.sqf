@@ -31,7 +31,8 @@
     "CHECKBOX",
     ["Close map", "Closes the map every time the vanilla map is opened."],
     [COMPONENT_NAME, "General"],
-    true
+    true,
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -62,12 +63,30 @@
 
         private _priority = QGVAR(allowAdjust) call CBA_settings_fnc_priority;
 
-        // Detect whether setting was globally enforced; If globally enforced (server = 1 or mission = 2), tracking type is locked; 0 is client
-        GVAR(allowAdjustSettingIsLocked) = (((switch (_priority) do {
+        // Detect whether setting was globally forced; If globally enforced (server = 1 or mission = 2), tracking type is locked; 0 is client
+        private _source = switch (_priority) do {
             case "client": {CBA_settings_client};
             case "mission": {CBA_settings_mission};
             case "server": {CBA_settings_server};
-        }) getVariable [QGVAR(allowAdjust), [0, 1]]) param [1, 0]) > 0 && {isMultiplayer || {_priority == "mission"}};
+        };
+
+        // If something failed, lock the setting
+        if (isNil "_source" || {isNull _source}) exitWith {
+            GVAR(allowAdjustSettingIsLocked) = true;
+        };
+
+        private _forced = _source getVariable QGVAR(allowAdjust);
+
+        // When starting mission, enforced variables are not set; They are only set if the CBA settings are manually changed
+        if (isNil "_forced") exitWith {
+            GVAR(allowAdjustSettingIsLocked) = switch (_priority) do {
+                case "client": {false};
+                case "mission": {true};
+                case "server": {isMultiplayer};
+            };
+        };
+
+        GVAR(allowAdjustSettingIsLocked) = _forced param [1, 0] > 0 && {isMultiplayer || {_priority == "mission"}};
     }
 ] call CBA_fnc_addSetting;
 
@@ -167,5 +186,9 @@
     "LIST",
     ["Preferred tablet mode", "Sets the preferred tablet mode."],
     [COMPONENT_NAME, "Tablet Preferences"],
-    [[true, false], ["Night", "Day"], 1]
+    [[true, false], ["Night", "Day"], 1],
+    2,
+    {
+        GVAR(nightMap) = _this;
+    }
 ] call CBA_fnc_addSetting;

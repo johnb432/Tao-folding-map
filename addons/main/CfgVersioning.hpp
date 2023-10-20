@@ -3,7 +3,7 @@ class CfgSettings {
         class Versioning {
             class PREFIX {
                 class Dependencies {
-                    CBA[] = {"cba_main", {3, 15, 8}, "true"};
+                    CBA[] = {"cba_main", {3, 16, 0}, "true"};
                 };
             };
         };

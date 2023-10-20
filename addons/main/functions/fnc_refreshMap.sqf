@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 
 /*
  * Author: johnb43
@@ -19,8 +19,4 @@
 call FUNC(toggleMap);
 
 // Best wait 2 frames
-{
-    {
-        call FUNC(toggleMap);
-    } call CBA_fnc_execNextFrame;
-} call CBA_fnc_execNextFrame;
+[FUNC(toggleMap), [], 2] call CBA_fnc_execAfterNFrames;

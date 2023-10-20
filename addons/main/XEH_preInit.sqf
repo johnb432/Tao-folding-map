@@ -18,6 +18,7 @@ GVAR(drawPaper) = [GVAR(prefMap), true] select GVAR(mapTypeLocked);
 if !(GETMVAR("CBA_settings_ready",false)) then {
     GVAR(allowAdjustSettingIsLocked) = true;
     GVAR(hasGPS) = false;
+    GVAR(nightMap) = false;
 };
 
 // Enable map after CBA settings have been initialised

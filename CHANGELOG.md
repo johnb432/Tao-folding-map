@@ -1,3 +1,8 @@
+# Changelog for Tao's Folding Map Rewrite 20.10.2023
+
+4.2.4.0
+- Various fixes.
+
 # Changelog for Tao's Folding Map Rewrite 30.7.2023
 
 4.2.3.7

@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 
 /*
  * Author: johnb43
@@ -37,15 +37,19 @@
             true
         ], [
             // Switch to day/night mode
-            format ["Switch to %1 mode", ["night", "day"] select GVAR(isNightMap)],
+            format ["Switch to %1 mode", ["night", "day"] select GVAR(nightMap)],
             {
-                call FUNC(toggleNvMode);
+                GVAR(nightMap) = !GVAR(nightMap);
+
+                if (GVAR(isOpen) && {!GVAR(drawPaper)}) then {
+                    call FUNC(toggleNvMode);
+                };
             },
             "",
             "Toggles the map mode.",
             [],
             DIK_S,
-            GETMVAR("CBA_settings_ready",false) && {GVAR(enableMap)} && {GVAR(isOpen)} && {!GVAR(drawPaper)},
+            GETMVAR("CBA_settings_ready",false) && {GVAR(enableMap)},
             true
         ], [
             // Switch to manual tracking mode
@@ -57,7 +61,7 @@
             "Switches the map to manual tracking mode.",
             [],
             DIK_M,
-            GETMVAR("CBA_settings_ready",false) && {GVAR(enableMap)} && {GVAR(isOpen)} && {GVAR(adjustMode) != MANUAL} && {!GVAR(allowAdjustSettingIsLocked)},
+            GETMVAR("CBA_settings_ready",false) && {GVAR(enableMap)} && {GVAR(adjustMode) != MANUAL} && {!GVAR(allowAdjustSettingIsLocked)},
             true
         ], [
             // Switch to automatic tracking mode
@@ -69,7 +73,7 @@
             "Switches the map to automatic tracking mode.",
             [],
             DIK_A,
-            GETMVAR("CBA_settings_ready",false) && {GVAR(enableMap)} && {GVAR(isOpen)} && {GVAR(adjustMode) != AUTOMATIC} && {!GVAR(allowAdjustSettingIsLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
+            GETMVAR("CBA_settings_ready",false) && {GVAR(enableMap)} && {GVAR(adjustMode) != AUTOMATIC} && {!GVAR(allowAdjustSettingIsLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
             true
         ], [
             // Switch to centered tracking mode
@@ -81,7 +85,7 @@
             "Switches the map to centered tracking mode.",
             [],
             DIK_C,
-            GETMVAR("CBA_settings_ready",false) && {GVAR(enableMap)} && {GVAR(isOpen)} && {GVAR(adjustMode) != CENTERED} && {!GVAR(allowAdjustSettingIsLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
+            GETMVAR("CBA_settings_ready",false) && {GVAR(enableMap)} && {GVAR(adjustMode) != CENTERED} && {!GVAR(allowAdjustSettingIsLocked)} && {GVAR(hasGPS) || !GVAR(GPSAdjust)},
             true
         ]
     ]

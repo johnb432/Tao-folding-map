@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 
 /*
  * Author: johnb43
@@ -28,7 +28,16 @@ GVAR(doShow) = true;
     private _player = call CBA_fnc_currentUnit;
     GVAR(hasGPS) = _player call FUNC(findGPS);
 
-    if (!GVAR(enableMap) || {!GVAR(doShow)} || {GVAR(closeMap) && {visibleMap}} || {GVAR(requireMapForPaperMap) && {GVAR(drawPaper)} && {!shownMap}} || {GVAR(requireGPSForTablet) && {!GVAR(drawPaper)} && {!GVAR(hasGPS)}} || {!(cameraView in GVAR(closeView))} || {!alive _player}) exitWith {
+    if (
+        !GVAR(enableMap) ||
+        {!GVAR(doShow)} ||
+        {GVAR(closeMap) && {visibleMap}} ||
+        {GVAR(requireMapForPaperMap) && {GVAR(drawPaper)} && {!shownMap}} ||
+        {GVAR(requireGPSForTablet) && {!GVAR(drawPaper)} && {!GVAR(hasGPS)}} ||
+        {!(cameraView in GVAR(closeView))} ||
+        {call CBA_fnc_getActiveFeatureCamera != ""} ||
+        {!alive _player}
+    ) exitWith {
         (_this select 1) call CBA_fnc_removePerFrameHandler;
 
         // Destroy the rsc

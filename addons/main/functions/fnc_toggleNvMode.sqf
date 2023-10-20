@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 
 /*
  * Author: johnb43
@@ -16,11 +16,8 @@
  * Public: No
  */
 
-// Change which map is in use
-GVAR(isNightMap) = !GVAR(isNightMap);
-
-GVAR(mapCtrlActive) = [IDC_DAYMAP, IDC_NIGHTMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
-GVAR(mapCtrlInactive) = [IDC_NIGHTMAP, IDC_DAYMAP] select (!GVAR(drawPaper) && {GVAR(isNightMap)});
+GVAR(mapCtrlActive) = [IDC_DAYMAP, IDC_NIGHTMAP] select (!GVAR(drawPaper) && {GVAR(nightMap)});
+GVAR(mapCtrlInactive) = [IDC_NIGHTMAP, IDC_DAYMAP] select (!GVAR(drawPaper) && {GVAR(nightMap)});
 
 private _foldmap = FOLDMAP;
 private _controlActiveMap = _foldmap displayCtrl GVAR(mapCtrlActive);
