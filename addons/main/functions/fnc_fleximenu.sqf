@@ -1,5 +1,4 @@
 #include "..\script_component.hpp"
-
 /*
  * Author: johnb43
  * Menu definition.

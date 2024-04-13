@@ -1,5 +1,4 @@
 #include "..\script_component.hpp"
-
 /*
  * Author: johnb43
  * Refreshes the map after a setting has been changed.
