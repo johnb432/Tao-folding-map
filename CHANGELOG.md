@@ -1,3 +1,9 @@
+# Changelog for Tao's Folding Map Rewrite 13.4.2023
+
+4.2.5.0
+- Added latest hemtt support.
+- Various fixes.
+
 # Changelog for Tao's Folding Map Rewrite 20.10.2023
 
 4.2.4.0

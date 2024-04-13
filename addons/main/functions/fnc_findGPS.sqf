@@ -8,7 +8,7 @@
  * 0: Player <OBJECT>
  *
  * Return Value:
- * Has access to GPS panel <BOOL>
+ * None
  *
  * Example:
  * player call tao_rewrite_main_fnc_findGPS;
@@ -16,7 +16,10 @@
  * Public: No
  */
 
-private _panels = flatten (_this infoPanelComponents "left");
-private _index = _panels find "MinimapDisplayComponent";
+// Small piece of code from ACE
+private _gpsOpened = visibleGPS;
+private _gpsAvailable = openGPS true;
 
-(_index != -1 && {_panels select (_index + 1)}) || {(GVAR(itemsGPS) findAny (items _this)) != -1}
+if (!_gpsOpened) then {openGPS false};
+
+_gpsAvailable && {(GVAR(itemsGPS) findAny (items _this)) != -1};

@@ -26,7 +26,7 @@ GVAR(doShow) = true;
 // Open map
 [{
     private _player = call CBA_fnc_currentUnit;
-    GVAR(hasGPS) = _player call FUNC(findGPS);
+    _player call FUNC(findGPS);
 
     if (
         !GVAR(enableMap) ||

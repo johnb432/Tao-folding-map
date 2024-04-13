@@ -32,7 +32,7 @@ private _controlActiveMap = _this displayCtrl GVAR(mapCtrlActive);
 private _controlInactiveMap = _this displayCtrl GVAR(mapCtrlInactive);
 
 private _player = call CBA_fnc_currentUnit;
-GVAR(hasGPS) = _player call FUNC(findGPS);
+_player call FUNC(findGPS);
 
 // Change to paper map if wanted
 if (GVAR(drawPaper)) then {

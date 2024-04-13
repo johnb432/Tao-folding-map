@@ -23,7 +23,7 @@ if !(GETMVAR("CBA_settings_ready",false)) exitWith {
 
 if (!GVAR(isOpen)) then {
     private _player = call CBA_fnc_currentUnit;
-    GVAR(hasGPS) = _player call FUNC(findGPS);
+    _player call FUNC(findGPS);
 
     // Exit if in an invalid state for foldmap to open
     if (
