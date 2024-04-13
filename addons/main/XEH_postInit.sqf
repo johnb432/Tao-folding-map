@@ -1,7 +1,9 @@
 #include "script_component.hpp"
 
+if (!hasInterface) exitWith {};
+
 // CBA keybinds
-#include "initKeybinds.sqf"
+#include "initKeybinds.inc.sqf"
 
 // Make sure data exists, sometimes it fails
 if (GETPRVAR("igui_grid_tao_folding_map_rewrite_x",0) == 0) then {

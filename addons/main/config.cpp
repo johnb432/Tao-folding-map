@@ -7,9 +7,7 @@ class CfgPatches {
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {
-            "A3_Data_F_AoW_Loadorder",
-            "cba_main",
-            "cba_xeh"
+            "cba_main"
         };
         author = "johnb43, Taosenai";
         authors[] = {
