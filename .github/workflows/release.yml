@@ -28,16 +28,14 @@ jobs:
         rm -r include\
         xcopy /e /h /q pullrequest\addons addons\
         xcopy /e /h /q pullrequest\include include\
-    - name: Run HEMTT build
-      run: hemtt build
-    - name: Rename build folder
-      run: mv .hemttout/build .hemttout/@release
-    - name: Zip build
-      run: Compress-Archive .hemttout/@release -Destination tao_rewrite_${{ github.ref_name }}.zip
+    - name: Run HEMTT release
+      run: hemtt release
+    - name: Remove 'latest' zip
+      run: del releases\*latest.zip
     - name: Create release
       uses: marvinpinto/action-automatic-releases@latest
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "${{ github.ref_name }}"
         prerelease: false
-        files: tao_rewrite_${{ github.ref_name }}.zip
+        files: releases\
