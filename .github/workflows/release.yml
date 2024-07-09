@@ -1,14 +1,17 @@
 ---
-name: "tagged-release"
+name: tagged-release
 
 on:
   push:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   tagged-release:
-    name: "Tagged Release"
+    name: Tagged Release
     runs-on: windows-latest
     steps:
     - name: Checkout the source code
