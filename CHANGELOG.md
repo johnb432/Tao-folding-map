@@ -1,9 +1,14 @@
-# Changelog for Tao's Folding Map Rewrite 13.4.2023
+# Changelog for Tao's Folding Map Rewrite 9.7.2024
+
+4.2.7.0
+- Fixed bug where GPS panel would be opened.
+
+# Changelog for Tao's Folding Map Rewrite 13.4.2024
 
 4.2.6.0
 - Fixed bug where GPS was not detected.
 
-# Changelog for Tao's Folding Map Rewrite 13.4.2023
+# Changelog for Tao's Folding Map Rewrite 13.4.2024
 
 4.2.5.0
 - Added latest hemtt support.

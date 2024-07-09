@@ -10,7 +10,7 @@
  * None
  *
  * Example:
- * "tao_rewrite_main_fnc_toggleMap" call tao_rewrite_main_fnc_refreshAfterSettingChange;
+ * "tao_rewrite_main_fnc_toggleMap" call tao_rewrite_main_fnc_refreshAfterSettingChange
  *
  * Public: No
  */
