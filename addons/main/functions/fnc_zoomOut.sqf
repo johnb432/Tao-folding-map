@@ -10,7 +10,7 @@
  * None
  *
  * Example:
- * call tao_rewrite_main_fnc_zoomOut;
+ * call tao_rewrite_main_fnc_zoomOut
  *
  * Public: No
  */

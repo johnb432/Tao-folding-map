@@ -10,7 +10,7 @@
  * None
  *
  * Example:
- * ((uiNamespace getVariable ["tao_rewrite_main_foldmap", displayNull]) displayCtrl tao_rewrite_main_mapCtrlActive) call tao_rewrite_main_fnc_PFHmanual;
+ * ((uiNamespace getVariable ["tao_rewrite_main_foldmap", displayNull]) displayCtrl tao_rewrite_main_mapCtrlActive) call tao_rewrite_main_fnc_PFHmanual
  *
  * Public: No
  */

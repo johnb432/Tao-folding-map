@@ -10,7 +10,7 @@
  * Fleximenu <ARRAY>
  *
  * Example:
- * call tao_rewrite_main_fnc_fleximenu;
+ * call tao_rewrite_main_fnc_fleximenu
  *
  * Public: No
  */

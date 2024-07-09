@@ -11,7 +11,7 @@
  * None
  *
  * Example:
- * [player, (uiNamespace getVariable ["tao_rewrite_main_foldmap", displayNull]) displayCtrl tao_rewrite_main_mapCtrlActive] call tao_rewrite_main_fnc_PFHautomatic;
+ * [player, (uiNamespace getVariable ["tao_rewrite_main_foldmap", displayNull]) displayCtrl tao_rewrite_main_mapCtrlActive] call tao_rewrite_main_fnc_PFHautomatic
  *
  * Public: No
  */

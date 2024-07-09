@@ -10,15 +10,12 @@
  * None
  *
  * Example:
- * player call tao_rewrite_main_fnc_findGPS;
+ * player call tao_rewrite_main_fnc_findGPS
  *
  * Public: No
  */
 
-// Small piece of code from ACE
-private _gpsOpened = visibleGPS;
-private _gpsAvailable = openGPS true;
+private _panels = flatten (_this infoPanelComponents "left");
+private _index = _panels find "MinimapDisplayComponent";
 
-if (!_gpsOpened) then {openGPS false};
-
-GVAR(hasGPS) = _gpsAvailable || {(GVAR(itemsGPS) findAny (items _this)) != -1};
+GVAR(hasGPS) = (_index != -1 && {_panels select (_index + 1)}) || {(GVAR(itemsGPS) findAny (items _this)) != -1}
