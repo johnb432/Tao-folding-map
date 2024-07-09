@@ -21,7 +21,7 @@ All good? Then proceed and fill out the items below.
 -->
 
 **Mods (complete and add to the following information):**
-- **Arma 3:** `x.xx` [e.g. 1.00 stable, rc,  dev]
+- **Arma 3:** `2.xx` [e.g. 2.00 stable, rc, dev, profiling]
 - **CBA:** `3.x.x` [e.g. 3.0.0 stable, commit hash]
 - **Tao's Folding Map Rewrite:** `4.x.x` [e.g. 4.0.0 stable, commit hash]
 <!-- Make sure to reproduce the issue with only CBA and Tao's Folding Map Rewrite on a newly created mission! -->
