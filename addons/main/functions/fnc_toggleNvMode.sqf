@@ -10,7 +10,7 @@
  * None
  *
  * Example:
- * call tao_rewrite_main_fnc_toggleNvMode;
+ * call tao_rewrite_main_fnc_toggleNvMode
  *
  * Public: No
  */
