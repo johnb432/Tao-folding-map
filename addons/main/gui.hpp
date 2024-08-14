@@ -85,6 +85,7 @@ class RscTitles {
                         colorSea[] = {0.46, 0.65, 0.74, 0.5};
                         colorForest[] = {0.02, 0.5, 0.01, 0.3};
                         colorForestBorder[] = {0.02, 0.5, 0.01, 0.27};
+                        colorForestTextured[] = {0.02, 0.5, 0.01, 0.3};
                         colorRocks[] = {0, 0, 0, 0.3};
                         colorCountlines[] = {0.65, 0.45, 0.27, 0.7};
                         colorMainCountlines[] = {1, 0.1, 0.1, 0.9};
@@ -153,6 +154,7 @@ class RscTitles {
                         colorSea[] = {0.208, 0.05, 0.043, 0.5};
                         colorForest[] = {0.447, 0.122, 0.137, 0.3};
                         colorForestBorder[] = {0.447, 0.122, 0.137, 0.27};
+                        colorForestTextured[] = {0.447, 0.122, 0.137, 0.3};
                         colorRocks[] = {0, 0, 0, 0.4};
                         colorCountlines[] = {0.371, 0.124, 0.122, 0.75};
                         colorMainCountlines[] = {0.371, 0.124, 0.122, 0.9};

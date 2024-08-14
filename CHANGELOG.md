@@ -1,3 +1,9 @@
+# Changelog for Tao's Folding Map Rewrite 14.8.2024
+
+4.2.8.0
+- Fixed forests not showing up when loading "Enhanced Map"/"Enhanced Map Ace Version" (which turned them off).
+- Added setting "Zoom step", which allows you to set how much the map zooms in and out with every key press.
+
 # Changelog for Tao's Folding Map Rewrite 9.7.2024
 
 4.2.7.0
