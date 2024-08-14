@@ -16,9 +16,9 @@
  */
 
 // Don't allow excessive zoom
-if (GVAR(mapScale) / 2 < 0.005) exitWith {};
+if (GVAR(mapScale) / GVAR(zoomStep) < 0.005) exitWith {};
 
-GVAR(mapScale) = GVAR(mapScale) / 2;
+GVAR(mapScale) = GVAR(mapScale) / GVAR(zoomStep);
 
 private _controlActiveMap = FOLDMAP displayCtrl GVAR(mapCtrlActive);
 

@@ -52,6 +52,14 @@
 ] call CBA_fnc_addSetting;
 
 [
+    QGVAR(zoomStep),
+    "SLIDER",
+    ["Zoom step", "Sets the step between zoom levels."],
+    [COMPONENT_NAME, "General"],
+    [1, 10, 2, 2]
+] call CBA_fnc_addSetting;
+
+[
     QGVAR(allowAdjust),
     "LIST",
     ["Keep player on map", "Automatic adjusts the map to keep you on the map. Always centered keeps the player centered at all times. When set to manual you have to move the map yourself [see keybinds]."],

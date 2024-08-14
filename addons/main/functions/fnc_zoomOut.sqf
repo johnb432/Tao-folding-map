@@ -15,7 +15,7 @@
  * Public: No
  */
 
-GVAR(mapScale) = (GVAR(mapScale) * 2) min 1;
+GVAR(mapScale) = (GVAR(mapScale) * GVAR(zoomStep)) min 1;
 
 private _controlActiveMap = FOLDMAP displayCtrl GVAR(mapCtrlActive);
 
