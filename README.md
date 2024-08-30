@@ -45,7 +45,7 @@ When set to "Yes" a GPS device will be required in order to have automatic posit
 * Original [mod](https://steamcommunity.com/sharedfiles/filedetails/?id=1207709270&searchtext=tao%27s) by Taosenai. (C) 2013-2014 Ryan Schultz. (Workshop item has been removed, this was noticed on the 8.2.2021, but the link will be kept nonetheless.)
 * [BI Forum thread](http://forums.bistudio.com/showthread.php?148517-Tao-Folding-Map) for original mod
 * Dystopian for the updated darkening script, from [ACE3](https://github.com/acemod/ACE3/blob/master/addons/map/functions/fnc_determineMapLight.sqf)
-* drzdo, for [copying position and zoom in manual mode](https://github.com/johnb432/Tao-folding-map/issues/17)
+* drzdo for [copying position and zoom in manual mode](https://github.com/johnb432/Tao-folding-map/issues/17)
 * Mod overhaul by johnb43
 
 <h2>License</h2>
