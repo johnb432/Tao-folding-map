@@ -10,6 +10,7 @@ The items in "Items that provide GPS" are also considered GPS devices.
 * **Close map:** If set to disabled it will stay open when you open the vanilla map. If enabled the map will close.
 * **Keep map open in:** Allows you to define in which perspectives Tao's folding map will not be closed in.
 * **Refresh rate:** Allows you to set the refresh interval at which the map refreshes itself.
+* **Zoom step:** Allows you to set how much the map zooms in and out with every key press.
 * **Keep player on map:** Always keeps you on the map if set to automatic. On manual, you need to use the "Move up/down/left/right" keys to move the map around. Useful if want to disable automatic centering.
 * **Require GPS to adjust automatically:** This setting is set to "Yes" by default ***and can only be changed by the server***.
 When set to "Yes" a GPS device will be required in order to have automatic position tracking. The idea is that you need a GPS device to be able to track your position automatically but this can be turned off, if the mission maker/admin wants to.
@@ -29,7 +30,8 @@ When set to "Yes" a GPS device will be required in order to have automatic posit
 * Press **Alt-M** to open the map.
 * While the map is open, press **Alt-Numpad +/-** to zoom in and out.
 * Press **Ctrl-Alt-N** to change to night mode and back.
-* Press **Shift-Ctrl-M** to "refold" the map (recenters the map on your position). Disabled if "Keep player on map" setting is set to "Manual".
+* Press **Shift-Ctrl-M** to "refold" the map (recenters the map on your position) when "Keep player on map" setting is set to "Automatic".
+* Press **Shift-Ctrl-M** to set the minimap on the current cursor position when having the main map open and "Keep player on map" setting is set to "Manual". The zoom level is also copied from the main map to the minimap.
 * Press **Ctrl-Alt-M** while having the map open to change multiple settings. Shortcut keys are highlighted at the beginning of words (e.g. 'M' for 'Switch to **M**anual Tracking').
 * Use **Alt-ArrowKeys** to move the map around if "Keep player on map" setting is set to "Manual".
 
