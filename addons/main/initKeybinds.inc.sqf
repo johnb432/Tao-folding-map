@@ -4,12 +4,28 @@
     true
 }, {}, [DIK_M, [false, false, true]]] call CBA_fnc_addKeybind;
 
-[COMPONENT_NAME, QGVAR(refoldMap), ["Refold map", "Recenters the map on your current location."], {
-    if (GVAR(isOpen) && {GVAR(adjustMode) == AUTOMATIC} && {GVAR(hasGPS) || {!GVAR(GPSAdjust)}}) then {
-        GVAR(centerPos) = getPosATL (call CBA_fnc_currentUnit);
+[COMPONENT_NAME, QGVAR(refoldMap), ["Refold map", "When in automatic mode, it recenters the map on your current location.\nWhen in manual mode, it copies the main map location onto the minimap."], {
+    if (GVAR(isOpen)) then {
+        if (GVAR(adjustMode) == AUTOMATIC && {GVAR(hasGPS) || {!GVAR(GPSAdjust)}}) exitWith {
+            GVAR(centerPos) = getPosATL (call CBA_fnc_currentUnit);
 
-        (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
-        ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+            (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
+            ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+        };
+
+        if (visibleMap && {GVAR(adjustMode) == MANUAL}) exitWith {
+            disableSerialization;
+
+            private _mainMapCtrl = (findDisplay IDD_MAIN_MAP) displayCtrl 51;
+
+            if (isNull _mainMapCtrl) exitWith {};
+
+            GVAR(centerPos) = _mainMapCtrl posScreenToWorld getMousePosition;
+            GVAR(mapScale) = ctrlMapScale _mainMapCtrl;
+
+            (FOLDMAP displayCtrl GVAR(mapCtrlActive)) ctrlMapAnimAdd [0, GVAR(mapScale), GVAR(centerPos)];
+            ctrlMapAnimCommit (FOLDMAP displayCtrl GVAR(mapCtrlActive));
+        };
     };
 
     true

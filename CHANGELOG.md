@@ -1,3 +1,8 @@
+# Changelog for Tao's Folding Map Rewrite 30.8.2024
+
+4.2.9.0
+- Added the ability to copy position and zoom level from main main when in manual mode (see https://github.com/johnb432/Tao-folding-map/issues/17).
+
 # Changelog for Tao's Folding Map Rewrite 14.8.2024
 
 4.2.8.0

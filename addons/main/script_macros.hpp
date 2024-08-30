@@ -48,6 +48,7 @@
 #define FOLDMAP (GETUVAR(QGVAR(foldMap),displayNull))
 
 // Display & control ID defines.
+#define IDD_MAIN_MAP 12
 #define IDD_INTERRUPT 49
 
 #define IDC_BACKGROUND 23
